@@ -1,0 +1,6 @@
+{
+    "/api/v1": {
+        "target": "http://server.pbr.link:9000",
+        "secure": false
+    }
+}
