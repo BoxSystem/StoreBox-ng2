@@ -2,7 +2,6 @@ import { AuthService } from './services/auth.service';
 import { FnService } from './services/fn.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app.component';
-import { AuthGuard } from './services/auth-guard.service';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -20,9 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
         HttpClientModule,
     ],
     providers: [
-        AuthService,
         FnService,
-        AuthGuard,
     ],
     bootstrap: [AppComponent]
 })

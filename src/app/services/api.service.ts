@@ -16,9 +16,16 @@ export class ApiService {
     defaultOpts = { responseType: 'json' }
     constructor(private http: Http, private _notification: NzNotificationService, private router: Router) { }
     handleErr(err: any) {
-        let errMsg = err.status ? `${err.status} - ${err.statusText}` : err.message ? err.message : 'Server error';
-        let title = err.status > 200 ? '服务端响应' : '错误'
-        this._notification.create('error', title, errMsg, { nzDuration: 8000 })
+        let errMsg = err.status
+        if (err.error && err.error.error) {
+            errMsg += ` - ${err.error.message}`
+        } else {
+            errMsg = ` - ${err.statusText}`
+        }
+        this._notification.create('error', '错误', errMsg, { nzDuration: 4000 })
+        if (err.status === 403) {
+            this.router.navigate(['admin/auth'])
+        }
         return Observable.throw(new Error(errMsg));
     }
     private setOpts(options?) {
@@ -27,17 +34,11 @@ export class ApiService {
     protected httpGet(url, options?) {
         options = this.setOpts(options)
         return this.http.get(url, options)
-            .map((data: any) => {
-                return data;
-            })
             .catch((err: any) => this.handleErr(err))
-        }
-        protected httpPost(url, body, options?) {
-            options = this.setOpts(options)
-            return this.http.post(url, body, options)
-            .map((data: any) => {
-                return data;
-            })
+    }
+    protected httpPost(url, body, options?) {
+        options = this.setOpts(options)
+        return this.http.post(url, body, options)
             .catch((err: any) => this.handleErr(err))
     }
 }
