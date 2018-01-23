@@ -1,8 +1,9 @@
+import { UserAddComponent } from './components/admin/user/add';
 import { UserComponent } from './components/admin/user/index';
 import { DashboardComponent } from './components/admin/dashboard/index';
 import { AuthGuard } from './services/auth-guard.service';
 import { HomeComponent } from './components/admin/home/index';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { NgModule } from '@angular/core';
@@ -24,7 +25,10 @@ const routes: Routes = [
                 canActivateChild: [AuthGuard],
                 children: [
                     { path: 'home', component: DashboardComponent },
-                    { path: 'users', component: UserComponent },
+                    { path: 'users', children: [
+                        { path:"", component: UserComponent },
+                        { path:"add", component: UserAddComponent },
+                    ]},
                 ]
             }
         ]
@@ -37,10 +41,12 @@ const routes: Routes = [
         AuthComponent,
         DashboardComponent,
         UserComponent,
+        UserAddComponent,
     ],
     imports: [
         CommonModule,
         FormsModule,
+        ReactiveFormsModule,
         NgZorroAntdModule.forRoot(),
         RouterModule.forRoot(routes),
     ],

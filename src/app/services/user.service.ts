@@ -37,7 +37,7 @@ export class UserService extends ApiService {
         return this.httpGet(url)
     }
     changePassword(id, oldPassword, newPassword) {
-        let url = `${this.prefixUrl}/${id}/allow`
+        let url = `${this.prefixUrl}/${id}/password`
         let body = {
             "oldPassword": oldPassword,
             "newPassword": newPassword

@@ -2,3 +2,6 @@
 .components-table-control-bar {
     margin-bottom: 10px;
 }
+.ng-invalid .ant-form-explain {
+    color: crimson
+}

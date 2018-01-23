@@ -20,7 +20,7 @@ export class ApiService {
         if (err.error && err.error.error) {
             errMsg += ` - ${err.error.message}`
         } else {
-            errMsg = ` - ${err.statusText}`
+            errMsg += ` - ${err.statusText}`
         }
         this._notification.create('error', '错误', errMsg, { nzDuration: 4000 })
         if (err.status === 403) {
