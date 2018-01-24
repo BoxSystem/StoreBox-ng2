@@ -1,3 +1,6 @@
+import { CategoryService } from './services/category.service';
+import { RegexpFormComponent } from './components/admin/regexps/form';
+import { RegexpComponent } from './components/admin/regexps/index';
 import { UserAddComponent } from './components/admin/user/add';
 import { UserComponent } from './components/admin/user/index';
 import { DashboardComponent } from './components/admin/dashboard/index';
@@ -12,6 +15,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './components/admin/auth/index'
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
+import { RegexpService } from './services/regexp.service';
 
 const routes: Routes = [
     { path: '', redirectTo: 'admin', pathMatch: 'full' },
@@ -29,6 +33,11 @@ const routes: Routes = [
                         { path:"", component: UserComponent },
                         { path:"add", component: UserAddComponent },
                     ]},
+                    { path: 'regexps', children: [
+                        { path:"", component: RegexpComponent },
+                        { path:"form/:id", component: RegexpFormComponent },
+                        { path:"form", component: RegexpFormComponent },
+                    ]},
                 ]
             }
         ]
@@ -42,6 +51,8 @@ const routes: Routes = [
         DashboardComponent,
         UserComponent,
         UserAddComponent,
+        RegexpComponent,
+        RegexpFormComponent,
     ],
     imports: [
         CommonModule,
@@ -54,6 +65,8 @@ const routes: Routes = [
         AuthGuard,
         AuthService,
         UserService,
+        RegexpService,
+        CategoryService,
     ],
     exports: [
         RouterModule,
