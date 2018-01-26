@@ -10,19 +10,15 @@
             </li>
             <li nz-menu-item [routerLink]="['/admin/regexps']">
                 <span title>
-                    <i class="anticon anticon-solution"></i>
+                    <i class="anticon anticon-filter"></i>
                     <span class="nav-text">正则管理</span>
                 </span>
             </li>
-            <li nz-submenu>
+            <li nz-menu-item [routerLink]="['/admin/categories']">
                 <span title>
-                    <i class="anticon anticon-team"></i>
-                    <span class="nav-text">二级导航demo</span>
+                    <i class="anticon anticon-solution"></i>
+                    <span class="nav-text">分类管理</span>
                 </span>
-                <ul>
-                    <li nz-menu-item>Team 1</li>
-                    <li nz-menu-item>Team 2</li>
-                </ul>
             </li>
         </ul>
     </nz-sider>
