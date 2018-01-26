@@ -35,7 +35,7 @@ export class RegexpFormComponent implements OnInit {
     ) {}
     ngOnInit() {
         this.catApi.get().subscribe((data:any) => {
-            this.categories = data
+            this.categories = data.data
         })
         this.acRoute.paramMap.map((params) => {
             return params.get('id')
@@ -72,7 +72,7 @@ export class RegexpFormComponent implements OnInit {
             }
             subs = this.api.save(this.regexpItem._id, body)
         } else {
-            this.api.add(this.regexpItem)
+            subs = this.api.add(this.regexpItem)
         }
         subs.subscribe((data: any) => {
             this._message.success('执行成功', { nzDuration: 3000 })
