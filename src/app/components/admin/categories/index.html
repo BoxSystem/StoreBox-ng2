@@ -1,0 +1,36 @@
+
+<div class="components-table-control-bar">
+    <form nz-form [nzLayout]="'inline'">
+        <button nz-button [nzType]="'primary'" [routerLink]="[_formRouterLink]">
+            <span>添加</span>
+        </button>
+    </form>
+</div>
+<nz-table #nzTable [nzAjaxData]="_dataSet" [nzLoading]="_loading" [nzTotal]="_total" [nzPageSize]="10" [(nzPageIndex)]="_current">
+    <thead nz-thead>
+        <tr>
+            <th nz-th>
+                <span>名称</span>
+            </th>
+            <th nz-th>
+                <span>操作</span>
+            </th>
+        </tr>
+    </thead>
+    <tbody nz-tbody>
+        <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+            <td nz-td>
+                <a>{{data.name}}</a>
+            </td>
+            <td nz-td>
+                <a [routerLink]="[_formRouterLink, data._id]">修改</a>
+                <span nz-table-divider></span>
+                <nz-popconfirm [nzTitle]="'确定要删除吗？'" (nzOnConfirm)="del(data)">
+                    <a nz-popconfirm>删除</a>
+                </nz-popconfirm>
+                <span nz-table-divider></span>
+                <a [routerLink]="[_routerLink, data._id]">属性管理</a>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>

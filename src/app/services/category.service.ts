@@ -11,11 +11,15 @@ import 'rxjs/add/operator/catch';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { ApiService } from './api.service';
 
+interface ICategoryId extends String {}
+interface IAttributeId extends String {}
+
 @Injectable()
 export class CategoryService extends ApiService {
-    prefixUrl = this.apiUrl + '/categroies'
-    get() {
-        return this.httpGet(this.prefixUrl)
+    prefixUrl = this.apiUrl + '/categories'
+    get(id?:string) {
+        let url = id ? `${this.prefixUrl}/${id}` : this.prefixUrl
+        return this.httpGet(url)
     }
     add(body: {
         "name": string,
@@ -38,6 +42,25 @@ export class CategoryService extends ApiService {
         "pid": string
     }) {
         let url = `${this.prefixUrl}/${id}`
+        return this.httpPost(url, body)
+    }
+    addAttrs(id, body: {
+        "key": string,
+        "value": string
+    }) {
+        let url = `${this.prefixUrl}/${id}/attributes`
+        return this.httpPost(url, body)
+    }
+    delAttrs(id: ICategoryId, aid: IAttributeId) {
+        let url = `${this.prefixUrl}/${id}/attributes/${aid}/delete`
+        return this.httpGet(url)
+    }
+    saveAttrs(
+        id: ICategoryId,
+        aid: IAttributeId,
+        body: { "value": string }
+    ) {
+        let url = `${this.prefixUrl}/${id}/attributes/${aid}`
         return this.httpPost(url, body)
     }
 }

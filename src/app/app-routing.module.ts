@@ -1,3 +1,7 @@
+import { CategoryAttrsFormComponent } from './components/admin/categories/attributes.form';
+import { CategoryAttrsComponent } from './components/admin/categories/attributes';
+import { CategoryComponent } from './components/admin/categories/index';
+import { CategoryFormComponent } from './components/admin/categories/form';
 import { CategoryService } from './services/category.service';
 import { RegexpFormComponent } from './components/admin/regexps/form';
 import { RegexpComponent } from './components/admin/regexps/index';
@@ -38,6 +42,18 @@ const routes: Routes = [
                         { path:"form/:id", component: RegexpFormComponent },
                         { path:"form", component: RegexpFormComponent },
                     ]},
+                    { path: 'categories', children: [
+                        { path:"", component: CategoryComponent },
+                        { path:"form/:id", component: CategoryFormComponent },
+                        { path: "form", component: CategoryFormComponent },
+                        {
+                            path: ":id", children: [
+                                { path: "", component: CategoryAttrsComponent },
+                                { path: "attributes/:aid", component: CategoryAttrsFormComponent },
+                                { path: "attributes", component: CategoryAttrsFormComponent }
+                            ]
+                        },
+                    ]},
                 ]
             }
         ]
@@ -53,6 +69,10 @@ const routes: Routes = [
         UserAddComponent,
         RegexpComponent,
         RegexpFormComponent,
+        CategoryComponent,
+        CategoryFormComponent,
+        CategoryAttrsComponent,
+        CategoryAttrsFormComponent,
     ],
     imports: [
         CommonModule,
