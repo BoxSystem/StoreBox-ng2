@@ -18,11 +18,15 @@ export class RegexpComponent implements OnInit {
     _loading = true
     _total = 1
     _current = 1
+    _pageSize = 10
     isVisible = false
     activeUser: any
     constructor(private api: RegexpService, private fb: FormBuilder, private _message: NzMessageService) {}
     private _refreshList() {
-        this.api.get().subscribe((data: any) => {
+        this.api.get(null, {
+            perNum: this._pageSize,
+            page: this._current
+        }).subscribe((data: any) => {
             this._loading = false
             this._dataSet = data.data
             this._total = data.total

@@ -13,31 +13,28 @@ import { ApiService } from './api.service';
 
 @Injectable()
 export class UserService extends ApiService {
-    prefixUrl = this.apiUrl + '/users'
-    get() {
-        return this.httpGet(this.prefixUrl)
-    }
+    apiUrl = this.baseApiUrl + '/users'
     add(username, password) {
         let body = {
             username: username,
             password: password
         }
-        return this.httpPost(this.prefixUrl, body)
+        return this.httpPost(this.apiUrl, body)
     }
     del(id) {
-        let url = `${this.prefixUrl}/${id}/delete`
+        let url = `${this.apiUrl}/${id}/delete`
         return this.httpGet(url)
     }
     ban(id) {
-        let url = `${this.prefixUrl}/${id}/ban`
+        let url = `${this.apiUrl}/${id}/ban`
         return this.httpGet(url)
     }
     allow(id) {
-        let url = `${this.prefixUrl}/${id}/allow`
+        let url = `${this.apiUrl}/${id}/allow`
         return this.httpGet(url)
     }
     changePassword(id, oldPassword, newPassword) {
-        let url = `${this.prefixUrl}/${id}/password`
+        let url = `${this.apiUrl}/${id}/password`
         let body = {
             "oldPassword": oldPassword,
             "newPassword": newPassword

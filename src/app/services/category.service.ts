@@ -16,11 +16,7 @@ interface IAttributeId extends String {}
 
 @Injectable()
 export class CategoryService extends ApiService {
-    prefixUrl = this.apiUrl + '/categories'
-    get(id?:string) {
-        let url = id ? `${this.prefixUrl}/${id}` : this.prefixUrl
-        return this.httpGet(url)
-    }
+    apiUrl = this.baseApiUrl + '/categories'
     add(body: {
         "name": string,
         "tags": string[],
@@ -30,10 +26,10 @@ export class CategoryService extends ApiService {
         }],
         "pid": string
     }) {
-        return this.httpPost(this.prefixUrl, body)
+        return this.httpPost(this.apiUrl, body)
     }
     del(id) {
-        let url = `${this.prefixUrl}/${id}/delete`
+        let url = `${this.apiUrl}/${id}/delete`
         return this.httpGet(url)
     }
     save(id, body: {
@@ -41,18 +37,18 @@ export class CategoryService extends ApiService {
         "tags": string[],
         "pid": string
     }) {
-        let url = `${this.prefixUrl}/${id}`
+        let url = `${this.apiUrl}/${id}`
         return this.httpPost(url, body)
     }
     addAttrs(id, body: {
         "key": string,
         "value": string
     }) {
-        let url = `${this.prefixUrl}/${id}/attributes`
+        let url = `${this.apiUrl}/${id}/attributes`
         return this.httpPost(url, body)
     }
     delAttrs(id: ICategoryId, aid: IAttributeId) {
-        let url = `${this.prefixUrl}/${id}/attributes/${aid}/delete`
+        let url = `${this.apiUrl}/${id}/attributes/${aid}/delete`
         return this.httpGet(url)
     }
     saveAttrs(
@@ -60,7 +56,7 @@ export class CategoryService extends ApiService {
         aid: IAttributeId,
         body: { "value": string }
     ) {
-        let url = `${this.prefixUrl}/${id}/attributes/${aid}`
+        let url = `${this.apiUrl}/${id}/attributes/${aid}`
         return this.httpPost(url, body)
     }
 }

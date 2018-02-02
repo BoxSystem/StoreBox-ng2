@@ -1,4 +1,3 @@
-
 <div class="components-table-control-bar">
     <form nz-form [nzLayout]="'inline'">
         <button nz-button [nzType]="'primary'" [routerLink]="[_formRouterLink]">
@@ -6,7 +5,7 @@
         </button>
     </form>
 </div>
-<nz-table #nzTable [nzAjaxData]="_dataSet" [nzLoading]="_loading" [nzTotal]="_total" [nzPageSize]="10" [(nzPageIndex)]="_current">
+<nz-table #nzTable [nzAjaxData]="_dataSet" [nzLoading]="_loading" [nzTotal]="_total" [nzPageSize]="_pageSize" [(nzPageIndex)]="_current">
     <thead nz-thead>
         <tr>
             <th nz-th>

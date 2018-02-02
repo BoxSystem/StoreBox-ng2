@@ -13,9 +13,9 @@ import { ApiService } from './api.service';
 
 @Injectable()
 export class AuthService extends ApiService {
-    prefixUrl = this.apiUrl + '/auth'
+    apiUrl = this.baseApiUrl + '/auth'
     login(username, password) {
-        let url = this.prefixUrl + '/login'
+        let url = this.apiUrl + '/login'
         return this.httpPost(url, {username: username, password: password})
     }
 }

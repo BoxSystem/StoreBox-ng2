@@ -13,19 +13,16 @@ import { ApiService } from './api.service';
 
 @Injectable()
 export class RegexpService extends ApiService {
-    prefixUrl = this.apiUrl + '/regexps'
-    get() {
-        return this.httpGet(this.prefixUrl)
-    }
+    apiUrl = this.baseApiUrl + '/regexps'
     add(body: { name: string, value: string, link: string }) {
-        return this.httpPost(this.prefixUrl, body)
+        return this.httpPost(this.apiUrl, body)
     }
     del(id) {
-        let url = `${this.prefixUrl}/${id}/delete`
+        let url = `${this.apiUrl}/${id}/delete`
         return this.httpGet(url)
     }
     save(id, body: {name:string, value:string, link:string}) {
-        let url = `${this.prefixUrl}/${id}`
+        let url = `${this.apiUrl}/${id}`
         return this.httpPost(url, body)
     }
 }
