@@ -1,3 +1,6 @@
+import { GoodAttrsFormComponent } from './components/admin/goods/attributes.form';
+import { GoodAttrsComponent } from './components/admin/goods/attributes';
+import { GoodComponent } from './components/admin/goods/index';
 import { CategoryAttrsFormComponent } from './components/admin/categories/attributes.form';
 import { CategoryAttrsComponent } from './components/admin/categories/attributes';
 import { CategoryComponent } from './components/admin/categories/index';
@@ -20,6 +23,7 @@ import { AuthComponent } from './components/admin/auth/index'
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { RegexpService } from './services/regexp.service';
+import { GoodService } from './services/good.service';
 
 const routes: Routes = [
     { path: '', redirectTo: 'admin', pathMatch: 'full' },
@@ -54,6 +58,16 @@ const routes: Routes = [
                             ]
                         },
                     ]},
+                    { path: 'goods', children: [
+                        { path:"", component: GoodComponent },
+                        {
+                            path: ":id", children: [
+                                { path: "", component: GoodAttrsComponent },
+                                { path: "attributes/:aid", component: GoodAttrsFormComponent },
+                                { path: "attributes", component: GoodAttrsFormComponent }
+                            ]
+                        },
+                    ]},
                 ]
             }
         ]
@@ -73,6 +87,9 @@ const routes: Routes = [
         CategoryFormComponent,
         CategoryAttrsComponent,
         CategoryAttrsFormComponent,
+        GoodComponent,
+        GoodAttrsComponent,
+        GoodAttrsFormComponent,
     ],
     imports: [
         CommonModule,
@@ -87,6 +104,7 @@ const routes: Routes = [
         UserService,
         RegexpService,
         CategoryService,
+        GoodService,
     ],
     exports: [
         RouterModule,

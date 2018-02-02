@@ -9,10 +9,12 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { NzNotificationService } from 'ng-zorro-antd';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class ApiService {
-    protected apiUrl = '/api/v1';  // URL to web api
+    protected baseApiUrl = '/api/v1';  // base URL to web api
+    public apiUrl: string
     defaultOpts = { responseType: 'json' }
     constructor(private http: Http, private _notification: NzNotificationService, private router: Router) { }
     handleErr(err: any) {
@@ -29,7 +31,19 @@ export class ApiService {
         return Observable.throw(new Error(errMsg));
     }
     private setOpts(options?) {
-        return options ? Object.assign(this.defaultOpts, options) : this.defaultOpts
+        let opts = options ? Object.assign(this.defaultOpts, options) : this.defaultOpts
+        if (opts.params) {
+            opts.params = this.handleUrlParameters(opts.params)
+        }
+        return opts
+    }
+    private handleUrlParameters(params) {
+        let httpParams = new HttpParams();
+        for (const key in params) {
+            const value = params[key];
+            httpParams = httpParams.append(key, value)
+        }
+        return httpParams
     }
     protected httpGet(url, options?) {
         options = this.setOpts(options)
@@ -40,5 +54,15 @@ export class ApiService {
         options = this.setOpts(options)
         return this.http.post(url, body, options)
             .catch((err: any) => this.handleErr(err))
+    }
+    get(
+        id?:string,
+        params?: { perNum?: number, page?: number }
+    ) {
+        let url = id ? `${this.apiUrl}/${id}` : this.apiUrl
+        let options = {
+            params: params ? params : { perNum: 25, page: 1 }
+        }
+        return this.httpGet(url, options)
     }
 }
