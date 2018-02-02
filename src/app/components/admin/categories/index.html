@@ -5,7 +5,7 @@
         </button>
     </form>
 </div>
-<nz-table #nzTable [nzAjaxData]="_dataSet" [nzLoading]="_loading" [nzTotal]="_total" [nzPageSize]="_pageSize" [(nzPageIndex)]="_current">
+<nz-table #nzTable [nzAjaxData]="_dataSet" [nzLoading]="_loading" [nzTotal]="_total" [nzPageSize]="_pageSize" [(nzPageIndex)]="_current" (nzPageIndexChange)="_refreshList()">
     <thead nz-thead>
         <tr>
             <th nz-th>
