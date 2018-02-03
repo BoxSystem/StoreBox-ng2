@@ -46,7 +46,7 @@ export class RegexpFormComponent implements OnInit {
                     let element = rs[key];
                     if (element._id === id) {
                         this.regexpItem = element
-                        this.selectedLinkId = element.link._id
+                        this.selectedLinkId = element.link && element.link._id
                         this.oldName = element.name
                         this.oldValue = element.value
                     }
