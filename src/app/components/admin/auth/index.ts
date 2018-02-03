@@ -19,8 +19,12 @@ export class AuthComponent {
     submitForm() {
         this.authService.login(this.username, this.password)
             .subscribe((data: any) => {
-                console.log(data)
-                const loginInfo = {}
+                let now = new Date()
+                let expires = now.getTime() + data.expires * 1000
+                const loginInfo = {
+                    name: data.nickname,
+                    expires: expires,
+                }
                 this.Fn.setUserSess(loginInfo)
                 let redirect = 'admin/home'
                 this.router.navigate([redirect])

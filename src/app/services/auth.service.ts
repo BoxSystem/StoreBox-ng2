@@ -18,4 +18,8 @@ export class AuthService extends ApiService {
         let url = this.apiUrl + '/login'
         return this.httpPost(url, {username: username, password: password})
     }
+    logout() {
+        let url = this.apiUrl + '/logout'
+        return this.httpGet(url)
+    }
 }

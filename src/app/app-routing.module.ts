@@ -1,3 +1,4 @@
+import { FileService } from './services/file.service';
 import { GoodAttrsFormComponent } from './components/admin/goods/attributes.form';
 import { GoodAttrsComponent } from './components/admin/goods/attributes';
 import { GoodComponent } from './components/admin/goods/index';
@@ -34,7 +35,8 @@ const routes: Routes = [
             {
                 path: '',
                 component: HomeComponent,
-                canActivateChild: [AuthGuard],
+                // canActivate: [AuthGuard],
+                // canActivateChild: [AuthGuard],
                 children: [
                     { path: 'home', component: DashboardComponent },
                     { path: 'users', children: [
@@ -105,6 +107,7 @@ const routes: Routes = [
         RegexpService,
         CategoryService,
         GoodService,
+        FileService,
     ],
     exports: [
         RouterModule,

@@ -2,6 +2,9 @@
     <thead nz-thead>
         <tr>
             <th nz-th>
+                <span>原文件名</span>
+            </th>
+            <th nz-th>
                 <span>文件名</span>
             </th>
             <th nz-th>
@@ -21,6 +24,9 @@
     <tbody nz-tbody>
         <tr nz-tbody-tr *ngFor="let data of nzTable.data">
             <td nz-td>
+                <a>{{data.originname}}</a>
+            </td>
+            <td nz-td>
                 <a>{{data.filename}}</a>
             </td>
             <td nz-td>
@@ -36,6 +42,8 @@
             </td>
             <td nz-td>
                 <a [routerLink]="[_routerLink, data._id]">属性管理</a>
+                <span nz-table-divider></span>
+                <a (click)="downloadFile(data)">下载</a>
             </td>
         </tr>
     </tbody>

@@ -38,6 +38,17 @@
     height: 100%
 }
 
+.layout-header {
+    background-color: #fff
+}
+
+.layout-user-corner {
+    float: right
+}
+.layout-user-corner .ant-avatar {
+    margin-top: 16px
+}
+
 
 .main-content {
     margin: 0 16px

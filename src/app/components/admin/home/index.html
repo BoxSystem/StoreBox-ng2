@@ -29,8 +29,17 @@
         </ul>
     </nz-sider>
     <nz-layout>
-        <nz-header style="background: #fff; padding:0;">
-            <i class="anticon trigger" [class.anticon-menu-fold]="!isCollapsed" [class.anticon-menu-unfold]="isCollapsed" (click)="isCollapsed=!isCollapsed"></i>
+        <nz-header class="layout-header">
+            <nz-dropdown class="layout-user-corner" [nzTrigger]="'click'">
+                <a href class="ant-dropdown-link" nz-dropdown>
+                    <nz-avatar nzIcon="user" [nzShape]="'square'"></nz-avatar>
+                </a>
+                <ul nz-menu>
+                    <li nz-menu-item (click)="logout()">
+                        退出
+                    </li>
+                </ul>
+            </nz-dropdown>
         </nz-header>
         <nz-content class="main-content">
             <nz-breadcrumb class="breadcrumb">

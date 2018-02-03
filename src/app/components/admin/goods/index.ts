@@ -6,6 +6,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
+import { FileService } from '../../../services/file.service';
 
 @Component({
     styleUrls: ['./index.css'],
@@ -21,7 +22,7 @@ export class GoodComponent implements OnInit {
     _pageSize = 10
     isVisible = false
     activeUser: any
-    constructor(private api: GoodService, private fb: FormBuilder, private _message: NzMessageService) {}
+    constructor(private api: GoodService, private fb: FormBuilder, private _message: NzMessageService, private file: FileService) {}
     private _refreshList() {
         this.api.get(null, {
             perNum: this._pageSize,
@@ -34,5 +35,9 @@ export class GoodComponent implements OnInit {
     }
     ngOnInit() {
         this._refreshList()
+    }
+    downloadFile(data) {
+        this.file.downloadUrl(data.categroy, data._id).subscribe(console.log)
+        // window.open(url)
     }
 }
