@@ -40,17 +40,11 @@ export class RegexpFormComponent implements OnInit {
         this.acRoute.paramMap.map((params) => {
             return params.get('id')
         }).subscribe((id) => {
-            this.api.get().subscribe((data:any) => {
-                const rs = data.data
-                for (const key in rs) {
-                    let element = rs[key];
-                    if (element._id === id) {
-                        this.regexpItem = element
-                        this.selectedLinkId = element.link && element.link._id
-                        this.oldName = element.name
-                        this.oldValue = element.value
-                    }
-                }
+            this.api.get(id).subscribe((element:any) => {
+                this.regexpItem = element
+                this.selectedLinkId = element.link && element.link._id
+                this.oldName = element.name
+                this.oldValue = element.value
             })
         })
         this.validateForm = this.fb.group({

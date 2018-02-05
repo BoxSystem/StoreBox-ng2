@@ -12,7 +12,7 @@
         <div nz-form-label nz-col [nzMd]="3" [nzSm]="4" [nzXs]="24">
             <label nz-form-item-required>正则</label>
         </div>
-        <div nz-form-control nz-col [nzMd]="4" [nzSm]="6" [nzXs]="24">
+        <div nz-form-control nz-col [nzMd]="10" [nzXs]="24">
             <nz-input [nzSize]="'large'" [(ngModel)]="regexpItem.value" formControlName="value"></nz-input>
             <div nz-form-explain *ngIf="getFormControl('value').hasError('required')">请输入数据</div>
         </div>
