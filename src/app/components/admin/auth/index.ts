@@ -20,7 +20,7 @@ export class AuthComponent {
         this.authService.login(this.username, this.password)
             .subscribe((data: any) => {
                 let now = new Date()
-                let expires = now.getTime() + data.expires * 1000
+                let expires = now.getTime() + data.expires
                 const loginInfo = {
                     name: data.nickname,
                     expires: expires,
