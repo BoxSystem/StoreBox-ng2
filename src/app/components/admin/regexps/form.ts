@@ -8,8 +8,11 @@ import { Validators } from '@angular/forms';
 import { AbstractControl } from '@angular/forms/src/model';
 import { NzMessageService } from 'ng-zorro-antd';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 
 @Component({
+    selector: 'regexp-form',
     templateUrl: './form.html'
 })
 export class RegexpFormComponent implements OnInit {
@@ -25,6 +28,7 @@ export class RegexpFormComponent implements OnInit {
         name: string
     }
     validateForm: FormGroup
+    @Output() onAddSaved = new EventEmitter<boolean>()
     constructor(
         private api: RegexpService,
         private catApi: CategoryService,
@@ -73,6 +77,7 @@ export class RegexpFormComponent implements OnInit {
             if (this.regexpItem._id) {
                 this.router.navigate(['admin/regexps'])
             } else {
+                this.onAddSaved.emit(true)
                 this.validateForm.reset()
             }
         })

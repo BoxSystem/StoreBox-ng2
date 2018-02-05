@@ -1,10 +1,14 @@
-
 <div class="components-table-control-bar">
     <form nz-form [nzLayout]="'inline'">
-        <button nz-button [nzType]="'primary'" [routerLink]="[_formRouterLink]">
-            <span>添加</span>
+        <button nz-button [nzType]="'primary'"  (click)="showFormEvent(!showAddForm)">
+            <span *ngIf='!showAddForm'>添加</span>
+            <span *ngIf='showAddForm'>取消</span>
         </button>
+        <!-- <button nz-button [nzType]="'primary'" [routerLink]="[_formRouterLink]">
+            <span>添加</span>
+        </button> -->
     </form>
+    <regexp-form *ngIf='showAddForm' (onAddSaved)="addEvent($event)"></regexp-form>
 </div>
 <nz-table #nzTable [nzAjaxData]="_dataSet" [nzLoading]="_loading" [nzTotal]="_total" [nzPageSize]="_pageSize" [(nzPageIndex)]="_current" (nzPageIndexChange)="_refreshList()">
     <thead nz-thead>

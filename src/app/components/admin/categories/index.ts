@@ -18,9 +18,10 @@ export class CategoryComponent implements OnInit {
     _loading = true
     _total = 1
     _current = 1
-    _pageSize = 25
+    _pageSize = 15
     isVisible = false
     activeUser: any
+    showAddForm: boolean
     constructor(private api: CategoryService, private fb: FormBuilder, private _message: NzMessageService) {}
     private _refreshList() {
         this.api.get(null, {
@@ -33,7 +34,17 @@ export class CategoryComponent implements OnInit {
         })
     }
     ngOnInit() {
+        this.showAddForm = false
         this._refreshList()
+    }
+    addEvent(status: boolean) {
+        if (status) {
+            this.showAddForm = false
+            this._refreshList()
+        }
+    }
+    showFormEvent(status: boolean) {
+        this.showAddForm = status
     }
     del(data) {
         this.api.del(data._id).subscribe(() => {

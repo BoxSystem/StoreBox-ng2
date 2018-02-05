@@ -8,13 +8,15 @@ import { Validators } from '@angular/forms';
 import { AbstractControl } from '@angular/forms/src/model';
 import { NzMessageService } from 'ng-zorro-antd';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { AfterViewInit } from '@angular/core';
 import { NzInputComponent, NzInputDirectiveComponent } from 'ng-zorro-antd';
-import { ViewChildren } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
+import { Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+import { ViewChildren } from '@angular/core';
 
 @Component({
+    selector: 'category-form',
     templateUrl: './form.html'
 })
 export class CategoryFormComponent implements OnInit {
@@ -31,6 +33,7 @@ export class CategoryFormComponent implements OnInit {
     selectedPid: string
     @ViewChildren('tagInput')
     private input: QueryList<NzInputComponent>
+    @Output() onAddSaved = new EventEmitter<boolean>()
     constructor(
         private api: CategoryService,
         private fb: FormBuilder,
@@ -60,7 +63,6 @@ export class CategoryFormComponent implements OnInit {
                             return item._id === this.item.pid
                         })
                         .subscribe(data => {
-                            console.log(data)
                             this.selectedPid = data._id
                         })
                 })
@@ -87,6 +89,7 @@ export class CategoryFormComponent implements OnInit {
             if (this.item._id) {
                 this.router.navigate(['admin/categories'])
             } else {
+                this.onAddSaved.emit(true)
                 this.validateForm.reset()
             }
         })
@@ -102,12 +105,12 @@ export class CategoryFormComponent implements OnInit {
         const isLongTag = tag.length > 20;
         return isLongTag ? `${tag.slice(0, 20)}...` : tag;
     }
-
     showInput(): void {
         this.inputVisible = true;
         setTimeout(() => {
-            this.input.first._el.getElementsByTagName('input')[0].focus();
-        }, 30);
+            let first = this.input.first
+            first && first._el.getElementsByTagName('input')[0].focus();
+        }, 100);
     }
 
     handleInputConfirm(): void {

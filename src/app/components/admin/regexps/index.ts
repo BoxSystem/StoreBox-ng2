@@ -21,6 +21,7 @@ export class RegexpComponent implements OnInit {
     _pageSize = 10
     isVisible = false
     activeUser: any
+    showAddForm: boolean
     constructor(private api: RegexpService, private fb: FormBuilder, private _message: NzMessageService) {}
     private _refreshList() {
         this.api.get(null, {
@@ -33,7 +34,17 @@ export class RegexpComponent implements OnInit {
         })
     }
     ngOnInit() {
+        this.showAddForm = false
         this._refreshList()
+    }
+    addEvent(status: boolean) {
+        if (status) {
+            this.showAddForm = false
+            this._refreshList()
+        }
+    }
+    showFormEvent(status: boolean) {
+        this.showAddForm = status
     }
     del(data) {
         this.api.del(data._id).subscribe(() => {
