@@ -25,6 +25,18 @@
         </div>
     </div>
     <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzMd]="3" [nzSm]="4" [nzXs]="24">
+            <label nz-form-item-required>关联</label>
+        </div>
+        <div nz-form-control nz-col [nzMd]="4" [nzSm]="6" [nzXs]="24">
+            <nz-select [(ngModel)]="selectedPid" [nzPlaceHolder]="'选择关联分类'" formControlName="pid" nzAllowClear nzShowSearch="true">
+                <nz-option *ngFor="let option of categories" [nzLabel]="option.name" [nzValue]="option._id">
+                </nz-option>
+            </nz-select>
+            <div nz-form-explain *ngIf="getFormControl('pid').hasError('required')">请输入数据</div>
+        </div>
+    </div>
+    <div nz-form-item nz-row>
         <div nz-form-label nz-col [nzMd]="3" [nzSm]="4" [nzXs]="24"></div>
         <div nz-form-control nz-col>
             <button nz-button [nzSize]="'large'" [nzType]="'primary'" [disabled]="!validateForm.valid">保存</button>

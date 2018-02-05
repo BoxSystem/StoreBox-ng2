@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { CategoryService } from './../../../services/category.service';
 import { Component, QueryList } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -10,6 +11,8 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { AfterViewInit } from '@angular/core';
 import { NzInputComponent, NzInputDirectiveComponent } from 'ng-zorro-antd';
 import { ViewChildren } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/Rx';
 
 @Component({
     templateUrl: './form.html'
@@ -24,6 +27,8 @@ export class CategoryFormComponent implements OnInit {
     validateForm: FormGroup
     inputVisible = false
     inputValue = ''
+    categories: any
+    selectedPid: string
     @ViewChildren('tagInput')
     private input: QueryList<NzInputComponent>
     constructor(
@@ -34,24 +39,36 @@ export class CategoryFormComponent implements OnInit {
         private router: Router
     ) {}
     ngOnInit() {
+        let self = this
         this.acRoute.paramMap.map((params) => {
             return params.get('id')
         }).subscribe((id) => {
-            this.api.get().subscribe((data:any) => {
-                const rs = data.data
-                for (const key in rs) {
-                    let element = rs[key];
-                    if (element._id === id) {
-                        this.item = element
-                        this.oldName = element.name
-                        this.oldValue = element.value
-                    }
-                }
-            })
+            this.api.get()
+            .map(data => {
+                    this.categories = data.data
+                    return data.data
+                })
+                .mergeMap(val => val)
+                .filter((item: any) => item._id === id)
+                .subscribe((data:any) => {
+                    this.item = data
+                    this.oldName = this.item.name
+                    this.oldValue = this.item.value
+                    Observable.of(this.categories)
+                        .mergeMap(val => val)
+                        .filter((item: any) => {
+                            return item._id === this.item.pid
+                        })
+                        .subscribe(data => {
+                            console.log(data)
+                            this.selectedPid = data._id
+                        })
+                })
         })
         this.validateForm = this.fb.group({
             name: [this.item.name, [Validators.required]],
             tag: [null, []],
+            pid: [null, []],
         })
     }
     submit() {
