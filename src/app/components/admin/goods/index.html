@@ -2,9 +2,6 @@
     <thead nz-thead>
         <tr>
             <th nz-th>
-                <span>原文件名</span>
-            </th>
-            <th nz-th>
                 <span>文件名</span>
             </th>
             <th nz-th>
@@ -25,9 +22,6 @@
         <tr nz-tbody-tr *ngFor="let data of nzTable.data">
             <td nz-td>
                 <a>{{data.originname}}</a>
-            </td>
-            <td nz-td>
-                <a>{{data.filename}}</a>
             </td>
             <td nz-td>
                 <span *ngFor="let tag of data.tags">
