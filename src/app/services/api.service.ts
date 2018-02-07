@@ -31,7 +31,7 @@ export class ApiService {
         return Observable.throw(new Error(errMsg));
     }
     private setOpts(options?) {
-        let opts = options ? Object.assign(this.defaultOpts, options) : this.defaultOpts
+        let opts = options ? Object.assign(options, this.defaultOpts) : this.defaultOpts
         if (opts.params) {
             opts.params = this.handleUrlParameters(opts.params)
         }
