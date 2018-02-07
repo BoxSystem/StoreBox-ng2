@@ -38,13 +38,10 @@ export class CategoryComponent implements OnInit {
         this._refreshList()
     }
     addEvent(status: boolean) {
+        this.showAddForm = false
         if (status) {
-            this.showAddForm = false
             this._refreshList()
         }
-    }
-    showFormEvent(status: boolean) {
-        this.showAddForm = status
     }
     del(data) {
         this.api.del(data._id).subscribe(() => {

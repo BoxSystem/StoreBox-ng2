@@ -33,6 +33,7 @@
         <div nz-form-label nz-col [nzMd]="2" [nzSm]="4" [nzXs]="24"></div>
         <div nz-form-control nz-col>
             <button nz-button [nzSize]="'large'" [nzType]="'primary'" [disabled]="!validateForm.valid">保存</button>
+            <button type="button" nz-button [nzSize]="'large'" [nzType]="'danger'" (click)='cancel()'>取消</button>
         </div>
     </div>
 </form>

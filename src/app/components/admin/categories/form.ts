@@ -94,6 +94,9 @@ export class CategoryFormComponent implements OnInit {
             }
         })
     }
+    cancel() {
+        this.onAddSaved.emit(false)
+    }
     getFormControl(name) {
         return this.validateForm.controls[name];
     }
@@ -112,7 +115,6 @@ export class CategoryFormComponent implements OnInit {
             first && first._el.getElementsByTagName('input')[0].focus();
         }, 100);
     }
-
     handleInputConfirm(): void {
         if (this.inputValue) {
             this.item.tags.push(this.inputValue);

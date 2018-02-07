@@ -1,10 +1,11 @@
 
 <div class="components-table-control-bar">
     <form nz-form [nzLayout]="'inline'">
-        <button nz-button [nzType]="'primary'" [routerLink]="['/admin/users/add']">
+        <button nz-button [nzType]="'primary'" (click)="hideAddForm=false">
             <span>添加</span>
         </button>
     </form>
+    <user-form *ngIf="!hideAddForm"  (onAddFinished)="addEvent($event)"></user-form>
 </div>
 <nz-table #nzTable [nzAjaxData]="_dataSet" [nzLoading]="_loading" [nzTotal]="_total" [nzPageSize]="10" [(nzPageIndex)]="_current">
     <thead nz-thead>

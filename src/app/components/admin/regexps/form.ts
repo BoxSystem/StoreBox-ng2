@@ -82,6 +82,9 @@ export class RegexpFormComponent implements OnInit {
             }
         })
     }
+    cancel() {
+        this.onAddSaved.emit(false)
+    }
     getFormControl(name) {
         return this.validateForm.controls[name];
     }

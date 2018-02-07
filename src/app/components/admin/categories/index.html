@@ -1,8 +1,7 @@
 <div class="components-table-control-bar">
     <form nz-form [nzLayout]="'inline'">
-        <button nz-button [nzType]="'primary'" (click)="showFormEvent(!showAddForm)">
-            <span *ngIf='!showAddForm'>添加</span>
-            <span *ngIf='showAddForm'>取消</span>
+        <button nz-button [nzType]="'primary'" (click)="showAddForm=true">
+            <span>添加</span>
         </button>
     </form>
     <category-form *ngIf='showAddForm' (onAddSaved)="addEvent($event)"></category-form>

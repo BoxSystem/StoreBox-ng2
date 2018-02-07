@@ -38,8 +38,8 @@ export class RegexpComponent implements OnInit {
         this._refreshList()
     }
     addEvent(status: boolean) {
+        this.showAddForm = false
         if (status) {
-            this.showAddForm = false
             this._refreshList()
         }
     }

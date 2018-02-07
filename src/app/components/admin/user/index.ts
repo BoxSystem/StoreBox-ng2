@@ -26,7 +26,9 @@ export class UserComponent implements OnInit {
         confirm: string,
     }
     validateForm: FormGroup
+    hideAddForm: boolean
     constructor(private user: UserService, private fb: FormBuilder, private _message: NzMessageService, private fn: FnService) {
+        this.hideAddForm = true
         this.curUser = this.fn.getUserSess()
         this._resetPwdGroup()
     }
@@ -90,5 +92,11 @@ export class UserComponent implements OnInit {
     }
     getFormControl(name) {
         return this.validateForm.controls[name];
+    }
+    addEvent(status: boolean) {
+        this.hideAddForm = true
+        if (status) {
+            this._refreshList()
+        }
     }
 }

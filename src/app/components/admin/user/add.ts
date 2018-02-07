@@ -1,13 +1,15 @@
 import { UserService } from './../../../services/user.service';
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { AbstractControl } from '@angular/forms/src/model';
 import { NzMessageService } from 'ng-zorro-antd';
+import { Output } from '@angular/core';
 
 @Component({
+    selector: 'user-form',
     templateUrl: './add.html'
 })
 export class UserAddComponent implements OnInit {
@@ -18,6 +20,7 @@ export class UserAddComponent implements OnInit {
         confirm: string,
     }
     validateForm: FormGroup
+    @Output() onAddFinished = new EventEmitter<boolean>()
     constructor(private user: UserService, private fb: FormBuilder, private _message: NzMessageService) {
         this._resetPwdGroup()
     }
@@ -39,8 +42,12 @@ export class UserAddComponent implements OnInit {
         this.user.add(this.username, this.pwdGroup.new)
             .subscribe((data: any) => {
                 this._message.success('添加用户成功', { nzDuration             : 3000 })
+                this.onAddFinished.emit(true)
                 this.validateForm.reset()
             })
+        }
+    cancel() {
+        this.onAddFinished.emit(false)
     }
     _resetPwdGroup() {
         this.pwdGroup = {
