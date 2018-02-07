@@ -37,7 +37,7 @@ export class GoodComponent implements OnInit {
         this._refreshList()
     }
     downloadFile(data) {
-        this.file.downloadUrl(data.categroy, data._id).subscribe(console.log)
-        // window.open(url)
+        let url = this.file.downloadUrl(data.category, data._id)
+        window.open(url)
     }
 }

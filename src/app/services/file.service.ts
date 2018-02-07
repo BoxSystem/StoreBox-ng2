@@ -15,7 +15,7 @@ export class FileService extends ApiService {
     apiUrl = ''
     downloadUrl(cid:string, gid:string) {
         let url = `${this.apiUrl}/files/categories/${cid}/goods/${gid}`
-        return this.httpGet(url)
+        return url
     }
     list() {
         let url = `${this.apiUrl}/goods`
