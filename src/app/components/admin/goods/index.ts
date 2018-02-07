@@ -1,6 +1,6 @@
 import { GoodService } from './../../../services/good.service';
 import { Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
@@ -22,6 +22,8 @@ export class GoodComponent implements OnInit {
     _pageSize = 10
     isVisible = false
     activeUser: any
+    isUploading = false
+    @ViewChild('fileInput') fileInput;
     constructor(private api: GoodService, private fb: FormBuilder, private _message: NzMessageService, private file: FileService) {}
     private _refreshList() {
         this.api.get(null, {
@@ -39,5 +41,19 @@ export class GoodComponent implements OnInit {
     downloadFile(data) {
         let url = this.file.downloadUrl(data.category, data._id)
         window.open(url)
+    }
+    upload() {
+        let fileBrowser = this.fileInput.nativeElement;
+        if (fileBrowser.files && fileBrowser.files[0]) {
+            const formData = new FormData();
+            formData.append("file", fileBrowser.files[0]);
+            this.isUploading = true
+            this.api.upload(formData)
+                .subscribe(() => {
+                    this.isUploading = false
+                    this._message.success('上传成功')
+                    this._refreshList()
+                }, () => this.isUploading = false)
+        }
     }
 }

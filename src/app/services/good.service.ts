@@ -35,4 +35,7 @@ export class GoodService extends ApiService {
         let url = `${this.apiUrl}/${id}/attributes/${aid}`
         return this.httpPost(url, body)
     }
+    upload(formData) {
+        return this.httpPost(this.apiUrl, formData)
+    }
 }

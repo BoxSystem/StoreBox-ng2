@@ -1,3 +1,17 @@
+<div class="components-table-control-bar">
+    <form nz-form [nzLayout]="'inline'">
+        <div nz-form-item nz-row>
+            <div nz-form-control nz-col>
+                <input type="file" #fileInput />
+            </div>
+        </div>
+        <div nz-form-item nz-row>
+            <div nz-form-control nz-col>
+                <button nz-button type="button" [nzType]="'primary'" (click)="upload()" [nzLoading]="isUploading">Upload</button>
+            </div>
+        </div>
+    </form>
+</div>
 <nz-table #nzTable [nzAjaxData]="_dataSet" [nzLoading]="_loading" [nzTotal]="_total" [nzPageSize]="_pageSize" [(nzPageIndex)]="_current" (nzPageIndexChange)="_refreshList()">
     <thead nz-thead>
         <tr>
