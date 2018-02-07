@@ -35,25 +35,15 @@
             </td>
             <td nz-td>
                 <a (click)="showPwdFormModal(data)">修改密码</a>
-                <span nz-table-divider></span>
-                <nz-popconfirm [nzTitle]="'确定要删除吗？'" (nzOnConfirm)="del(data)">
-                    <a nz-popconfirm>删除</a>
-                </nz-popconfirm>
-                <span nz-table-divider></span>
-                <nz-dropdown>
-                    <a class="ant-dropdown-link" nz-dropdown>
-                        状态修改
-                        <i class="anticon anticon-down"></i>
-                    </a>
-                    <ul nz-menu>
-                        <li nz-menu-item>
-                            <a (click)="allow(data)">激活</a>
-                        </li>
-                        <li nz-menu-item>
-                            <a (click)="ban(data)">禁止</a>
-                        </li>
-                    </ul>
-                </nz-dropdown>
+                <ng-container *ngIf="data._id!=curUser.id" >
+                    <span nz-table-divider></span>
+                    <nz-popconfirm [nzTitle]="'确定要删除吗？'" (nzOnConfirm)="del(data)">
+                        <a nz-popconfirm>删除</a>
+                    </nz-popconfirm>
+                    <span nz-table-divider></span>
+                    <a (click)="allow(data)" *ngIf="!data.active">激活</a>
+                    <a (click)="ban(data)" *ngIf="data.active">禁止</a>
+                </ng-container>
             </td>
         </tr>
     </tbody>

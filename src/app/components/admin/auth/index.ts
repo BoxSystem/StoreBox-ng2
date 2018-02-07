@@ -21,10 +21,8 @@ export class AuthComponent {
             .subscribe((data: any) => {
                 let now = new Date()
                 let expires = now.getTime() + data.expires
-                const loginInfo = {
-                    name: data.nickname,
-                    expires: expires,
-                }
+                let loginInfo = data
+                loginInfo.expires = expires
                 this.Fn.setUserSess(loginInfo)
                 let redirect = 'admin/home'
                 this.router.navigate([redirect])

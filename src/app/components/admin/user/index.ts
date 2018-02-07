@@ -1,3 +1,4 @@
+import { FnService } from './../../../services/fn.service';
 import { UserService } from './../../../services/user.service';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -18,13 +19,15 @@ export class UserComponent implements OnInit {
     _current = 1
     isVisible = false
     activeUser: any
+    curUser: any
     pwdGroup: {
         old: string,
         new: string,
         confirm: string,
     }
     validateForm: FormGroup
-    constructor(private user: UserService, private fb: FormBuilder, private _message: NzMessageService) {
+    constructor(private user: UserService, private fb: FormBuilder, private _message: NzMessageService, private fn: FnService) {
+        this.curUser = this.fn.getUserSess()
         this._resetPwdGroup()
     }
     private _refreshList() {
