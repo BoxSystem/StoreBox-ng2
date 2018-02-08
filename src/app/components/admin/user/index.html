@@ -35,9 +35,11 @@
                 <nz-tag [nzColor]="'red'" *ngIf="!data.active" >禁止</nz-tag>
             </td>
             <td nz-td>
-                <a [routerLink]="['./', data._id, 'tokens']">Token管理</a>
-                <span nz-table-divider></span>
                 <a (click)="showPwdFormModal(data)">修改密码</a>
+                <ng-container *ngIf="data._id==curUser.id" >
+                    <span nz-table-divider></span>
+                    <a [routerLink]="['./', data._id, 'tokens']">Token管理</a>
+                </ng-container>
                 <ng-container *ngIf="data._id!=curUser.id" >
                     <span nz-table-divider></span>
                     <nz-popconfirm [nzTitle]="'确定要删除吗？'" (nzOnConfirm)="del(data)">
