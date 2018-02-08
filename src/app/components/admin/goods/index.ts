@@ -7,6 +7,7 @@ import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
 import { FileService } from '../../../services/file.service';
+import { NzUploadComponent } from 'ng-zorro-antd';
 
 @Component({
     styleUrls: ['./index.css'],
@@ -23,9 +24,11 @@ export class GoodComponent implements OnInit {
     isVisible = false
     activeUser: any
     isUploading = false
+    uploadUrl: string
     @ViewChild('fileInput') fileInput;
     constructor(private api: GoodService, private fb: FormBuilder, private _message: NzMessageService, private file: FileService) {}
     private _refreshList() {
+        this.uploadUrl = this.api.apiUrl
         this.api.get(null, {
             perNum: this._pageSize,
             page: this._current
@@ -42,18 +45,16 @@ export class GoodComponent implements OnInit {
         let url = this.file.downloadUrl(data.category, data._id)
         window.open(url)
     }
-    upload() {
-        let fileBrowser = this.fileInput.nativeElement;
-        if (fileBrowser.files && fileBrowser.files[0]) {
-            const formData = new FormData();
-            formData.append("file", fileBrowser.files[0]);
-            this.isUploading = true
-            this.api.upload(formData)
-                .subscribe(() => {
-                    this.isUploading = false
-                    this._message.success('上传成功')
-                    this._refreshList()
-                }, () => this.isUploading = false)
+    handleChange({ file, fileList }) {
+        const status = file.status;
+        if (status !== 'uploading') {
+            console.log(file, fileList);
+        }
+        if (status === 'done') {
+            this._message.success(`${file.name} 上传成功.`);
+            this._refreshList()
+        } else if (status === 'error') {
+            this._message.error(`${file.name} 上传失败.`);
         }
     }
 }

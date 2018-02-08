@@ -1,15 +1,12 @@
 <div class="components-table-control-bar">
     <form nz-form [nzLayout]="'inline'">
-        <div nz-form-item nz-row>
-            <div nz-form-control nz-col>
-                <input type="file" #fileInput />
-            </div>
-        </div>
-        <div nz-form-item nz-row>
-            <div nz-form-control nz-col>
-                <button nz-button type="button" [nzType]="'primary'" (click)="upload()" [nzLoading]="isUploading">Upload</button>
-            </div>
-        </div>
+        <nz-upload nzType="drag" [nzMultiple]="true" [nzLimit]="2" [nzAction]="uploadUrl" (nzChange)="handleChange($event)">
+            <p class="ant-upload-drag-icon">
+                <i class="anticon anticon-inbox"></i>
+            </p>
+            <p class="ant-upload-text">点击本区域或拖动文件到本区域进行文件上传</p>
+            <p class="ant-upload-hint">支持单个或批量文件上传</p>
+        </nz-upload>
     </form>
 </div>
 <nz-table #nzTable [nzAjaxData]="_dataSet" [nzLoading]="_loading" [nzTotal]="_total" [nzPageSize]="_pageSize" [(nzPageIndex)]="_current" (nzPageIndexChange)="_refreshList()">
