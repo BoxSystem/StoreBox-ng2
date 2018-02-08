@@ -9,6 +9,8 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ViewChild } from '@angular/core';
 import { NzInputDirectiveComponent } from 'ng-zorro-antd';
+import { Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 
 class Attrs {
     _id: string = ''
@@ -18,6 +20,7 @@ class Attrs {
 
 
 @Component({
+    selector: 'category-attrs-form',
     templateUrl: './attributes.form.html'
 })
 export class CategoryAttrsFormComponent implements OnInit {
@@ -29,6 +32,7 @@ export class CategoryAttrsFormComponent implements OnInit {
         attributes: []
     }
     validateForm: FormGroup
+    @Output() onAddFinished = new EventEmitter<boolean>()
     constructor(
         private api: CategoryService,
         private fb: FormBuilder,
@@ -69,9 +73,18 @@ export class CategoryAttrsFormComponent implements OnInit {
             subs = this.api.addAttrs(this.category._id, body)
         }
         subs.subscribe((data: any) => {
-                this._message.success('执行成功', { nzDuration: 3000 })
-            this.router.navigate([this._listLink, this.category._id])
-            })
+            this._message.success('执行成功', { nzDuration: 3000 })
+            if (this.item._id) {
+                this.router.navigate([
+                    this._listLink, this.category._id
+                ])
+            } else {
+                this.onAddFinished.emit(true)
+            }
+        })
+    }
+    cancel() {
+        this.onAddFinished.emit(false)
     }
     getFormControl(name) {
         return this.validateForm.controls[name];

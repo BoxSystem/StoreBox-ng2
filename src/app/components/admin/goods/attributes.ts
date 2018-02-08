@@ -22,6 +22,7 @@ export class GoodAttrsComponent implements OnInit {
     good: {
         _id: string
     }
+    showAddForm = false
     constructor(private api: GoodService, private fb: FormBuilder, private _message: NzMessageService, private acRoute: ActivatedRoute) {}
     private _refreshList(id) {
         this.api.get(id).subscribe((data: any) => {
@@ -38,6 +39,12 @@ export class GoodAttrsComponent implements OnInit {
             this._formRouterLink = `${this._routerLink}/${id}/attributes`
             this._refreshList(id)
         })
+    }
+    addEvent(status: boolean) {
+        this.showAddForm = false
+        if (status) {
+            this._refreshList(this.good._id)
+        }
     }
     del(data) {
         this.api.delAttrs(
