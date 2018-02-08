@@ -49,7 +49,7 @@
         </tr>
     </tbody>
 </nz-table>
-<nz-modal [nzVisible]="isVisible" [nzTitle]="'修改密码'" [nzContent]="modalContent" (nzOnCancel)="handleCancel($event)" (nzOnOk)="changePwd($event)" [nzConfirmLoading]="!validateForm.valid">
+<nz-modal #setPwdModal [nzVisible]="isVisible" [nzTitle]="'修改密码'" [nzContent]="modalContent" (nzOnCancel)="handleCancel($event)" (nzOnOk)="changePwd($event)">
     <ng-template #modalContent>
         <form nz-form [formGroup]="validateForm">
             <div nz-form-item nz-row>
