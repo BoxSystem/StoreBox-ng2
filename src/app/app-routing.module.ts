@@ -1,3 +1,4 @@
+import { TokenComponent } from './components/admin/user/token';
 import { FileService } from './services/file.service';
 import { GoodAttrsFormComponent } from './components/admin/goods/attributes.form';
 import { GoodAttrsComponent } from './components/admin/goods/attributes';
@@ -42,6 +43,7 @@ const routes: Routes = [
                     { path: 'users', children: [
                         { path:"", component: UserComponent },
                         { path:"add", component: UserAddComponent },
+                        { path:":id/tokens", component: TokenComponent },
                     ]},
                     { path: 'regexps', children: [
                         { path:"", component: RegexpComponent },
@@ -92,6 +94,7 @@ const routes: Routes = [
         GoodComponent,
         GoodAttrsComponent,
         GoodAttrsFormComponent,
+        TokenComponent,
     ],
     imports: [
         CommonModule,

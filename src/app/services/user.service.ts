@@ -41,4 +41,12 @@ export class UserService extends ApiService {
         }
         return this.httpPost(url, body)
     }
+    getTokens(uid: string) {
+        let url = `${this.apiUrl}/${uid}/tokens`
+        return this.httpGet(url)
+    }
+    delToken(uid:string, tid: string) {
+        let url = `${this.apiUrl}/${uid}/tokens/${tid}/delete`
+        return this.httpGet(url)
+    }
 }
