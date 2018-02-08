@@ -5,7 +5,7 @@ import { OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { AbstractControl } from '@angular/forms/src/model';
+import { AbstractControl } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Output } from '@angular/core';
@@ -53,9 +53,23 @@ export class RegexpFormComponent implements OnInit {
         })
         this.validateForm = this.fb.group({
             name: [this.regexpItem.name, [Validators.required]],
-            value: [this.regexpItem.name, [Validators.required]],
+            value: [this.regexpItem.name, [
+                Validators.required, this._isRegExp
+            ]],
             link: [this.regexpItem.name, []],
         })
+    }
+    _isRegExp = (control: AbstractControl) => {
+        let bool: boolean = true
+        if (this.validateForm) {
+            try {
+                const reg = new RegExp(control.value);
+                bool = false
+            } catch (error) {
+                bool = true;
+            }
+        }
+        return bool ? { regexp: true } : null;
     }
     submit() {
         let subs;
