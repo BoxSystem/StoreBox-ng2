@@ -43,7 +43,7 @@ export class TokenComponent implements OnInit {
         this._refreshList()
     }
     del(data) {
-        this.user.delToken(this.uid, data._id).subscribe(() => {
+        this.user.delToken(data._id).subscribe(() => {
             this._message.success('删除成功！')
             this._refreshList()
         })

@@ -14,6 +14,7 @@ import { ApiService } from './api.service';
 @Injectable()
 export class UserService extends ApiService {
     apiUrl = this.baseApiUrl + '/users'
+    apiTokenUrl = this.baseApiUrl + '/tokens'
     add(username, password) {
         let body = {
             username: username,
@@ -45,8 +46,8 @@ export class UserService extends ApiService {
         let url = `${this.apiUrl}/${uid}/tokens`
         return this.httpGet(url)
     }
-    delToken(uid:string, tid: string) {
-        let url = `${this.apiUrl}/${uid}/tokens/${tid}/delete`
+    delToken(tid: string) {
+        let url = `${this.apiTokenUrl}/${tid}/delete`
         return this.httpGet(url)
     }
 }
