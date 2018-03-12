@@ -1,3 +1,6 @@
+import { CollectionFormComponent } from './components/admin/collections/form';
+import { CollectionComponent } from './components/admin/collections/index';
+import { CollectionService } from './services/collection.service';
 import { TokenComponent } from './components/admin/user/token';
 import { FileService } from './services/file.service';
 import { GoodAttrsFormComponent } from './components/admin/goods/attributes.form';
@@ -72,6 +75,17 @@ const routes: Routes = [
                             ]
                         },
                     ]},
+                    { path: 'collections', children: [
+                        { path: "", component: CollectionComponent },
+                        {
+                            path: "form/:id",
+                            component: CollectionFormComponent
+                        },
+                        {
+                            path: "form",
+                            component: CollectionFormComponent
+                        },
+                    ]},
                 ]
             }
         ]
@@ -95,6 +109,8 @@ const routes: Routes = [
         GoodAttrsComponent,
         GoodAttrsFormComponent,
         TokenComponent,
+        CollectionComponent,
+        CollectionFormComponent,
     ],
     imports: [
         CommonModule,
@@ -111,6 +127,7 @@ const routes: Routes = [
         CategoryService,
         GoodService,
         FileService,
+        CollectionService,
     ],
     exports: [
         RouterModule,
