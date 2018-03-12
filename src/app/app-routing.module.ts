@@ -1,3 +1,4 @@
+import { UserFormComponent } from './components/admin/user/form';
 import { CollectionFormComponent } from './components/admin/collections/form';
 import { CollectionComponent } from './components/admin/collections/index';
 import { CollectionService } from './services/collection.service';
@@ -45,8 +46,8 @@ const routes: Routes = [
                     { path: 'home', component: DashboardComponent },
                     { path: 'users', children: [
                         { path:"", component: UserComponent },
-                        { path:"add", component: UserAddComponent },
                         { path:":id/tokens", component: TokenComponent },
+                        { path: "form/:id", component: UserFormComponent },
                     ]},
                     { path: 'regexps', children: [
                         { path:"", component: RegexpComponent },
@@ -111,6 +112,7 @@ const routes: Routes = [
         TokenComponent,
         CollectionComponent,
         CollectionFormComponent,
+        UserFormComponent,
     ],
     imports: [
         CommonModule,

@@ -26,6 +26,10 @@ export class UserService extends ApiService {
         let url = `${this.apiUrl}/${id}/delete`
         return this.httpGet(url)
     }
+    save(id, body: { nickname: string }) {
+        let url = `${this.apiUrl}/${id}`
+        return this.httpPost(url, body)
+    }
     ban(id) {
         let url = `${this.apiUrl}/${id}/ban`
         return this.httpGet(url)

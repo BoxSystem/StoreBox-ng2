@@ -13,6 +13,8 @@ import { NzMessageService } from 'ng-zorro-antd';
     templateUrl: './index.html'
 })
 export class UserComponent implements OnInit {
+    _routerLink = '/admin/users'
+    _formRouterLink = this._routerLink + '/form'
     _dataSet = []
     _loading = true
     _total = 1
