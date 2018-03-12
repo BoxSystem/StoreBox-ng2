@@ -23,12 +23,18 @@ export class CollectionFormComponent implements OnInit {
     cItemKeys: any
     selectedLinkId: string
     oldName: string
-    oldValue: string
-    goods: {
-        name: string
-    }
+    selectedGoods: any
+    goods: any
+    selectLoading = false
+    goodsPage = 1
+    goodsTotalPage = 1
     validateForm: FormGroup
     @Output() onAddSaved = new EventEmitter<boolean>()
+    getGoodsOpt(page) {
+        return this.goodApi.get(null, {
+            perNum: 10, page: page
+        })
+    }
     constructor(
         private api: CollectionService,
         private goodApi: GoodService,
@@ -38,7 +44,8 @@ export class CollectionFormComponent implements OnInit {
         private router: Router
     ) {}
     ngOnInit() {
-        this.goodApi.get().subscribe((data:any) => {
+        this.getGoodsOpt(this.goodsPage).subscribe((data: any) => {
+            this.goodsTotalPage = data.totalPages
             this.goods = data.data
         })
         this.acRoute.paramMap.map((params) => {
@@ -52,12 +59,11 @@ export class CollectionFormComponent implements OnInit {
                     for (const key in this.cItem.goods) {
                         goods.push(this.cItem.goods[key]._id)
                     }
-                    this.cItem.goods = goods
+                    this.selectedGoods = goods
                 } catch (error) {
                     console.error('文件夹没有文件数据', error)
                 }
                 this.oldName = data.name
-                this.oldValue = data.value
             })
         })
         this.validateForm = this.fb.group({
@@ -68,13 +74,11 @@ export class CollectionFormComponent implements OnInit {
     }
     submit() {
         let subs;
+        this.cItem.goods = this.selectedGoods
         if (this.cItem._id) {
             let body = Object.assign({}, this.cItem)
             if (this.oldName === body.name) {
                 delete body.name
-            }
-            if (this.oldValue === body.value) {
-                delete body.value
             }
             subs = this.api.save(this.cItem._id, body)
         } else {
@@ -95,5 +99,23 @@ export class CollectionFormComponent implements OnInit {
     }
     getFormControl(name) {
         return this.validateForm.controls[name];
+    }
+    scrollToBottom() {
+        if (!this.selectLoading) {
+            this.selectLoading = true;
+            if (this.goodsPage < this.goodsTotalPage) {
+                this.goodsPage += 1
+            } else {
+                this.selectLoading = false;
+                return
+            }
+            this.getGoodsOpt(this.goodsPage)
+                .subscribe((data: any) => {
+                    this.selectLoading = false;
+                    for (const key in data.data) {
+                        this.goods.push(data.data[key]);
+                    }
+                })
+        }
     }
 }
