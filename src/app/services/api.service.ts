@@ -60,8 +60,11 @@ export class ApiService {
         params?: { perNum?: number, page?: number }
     ) {
         let url = id ? `${this.apiUrl}/${id}` : this.apiUrl
-        let options = {
-            params: params ? params : { perNum: 25, page: 1 }
+        let options = null
+        if (!id) {
+            options = {
+                params: params ? params : { perNum: 25, page: 1 }
+            }
         }
         return this.httpGet(url, options)
     }

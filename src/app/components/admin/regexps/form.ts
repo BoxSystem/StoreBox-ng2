@@ -44,6 +44,7 @@ export class RegexpFormComponent implements OnInit {
         this.acRoute.paramMap.map((params) => {
             return params.get('id')
         }).subscribe((id) => {
+            if (!id) { return; }
             this.api.get(id).subscribe((element:any) => {
                 this.regexpItem = element
                 this.selectedLinkId = element.link && element.link._id

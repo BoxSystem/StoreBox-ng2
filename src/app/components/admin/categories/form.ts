@@ -46,6 +46,7 @@ export class CategoryFormComponent implements OnInit {
         this.acRoute.paramMap.map((params) => {
             return params.get('id')
         }).subscribe((id) => {
+            if (!id) { return; }
             this.api.get()
             .map(data => {
                     this.categories = data.data
