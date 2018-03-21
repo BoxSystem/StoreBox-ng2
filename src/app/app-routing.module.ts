@@ -25,7 +25,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AuthComponent } from './components/admin/auth/index'
+import { AuthComponent } from './components/admin/auth/index';
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { RegexpService } from './services/regexp.service';
@@ -45,45 +45,45 @@ const routes: Routes = [
                 children: [
                     { path: 'home', component: DashboardComponent },
                     { path: 'users', children: [
-                        { path:"", component: UserComponent },
-                        { path:":id/tokens", component: TokenComponent },
-                        { path: "form/:id", component: UserFormComponent },
+                        { path: '', component: UserComponent },
+                        { path: ':id/tokens', component: TokenComponent },
+                        { path: 'form/:id', component: UserFormComponent },
                     ]},
                     { path: 'regexps', children: [
-                        { path:"", component: RegexpComponent },
-                        { path:"form/:id", component: RegexpFormComponent },
-                        { path:"form", component: RegexpFormComponent },
+                        { path: '', component: RegexpComponent },
+                        { path: 'form/:id', component: RegexpFormComponent },
+                        { path: 'form', component: RegexpFormComponent },
                     ]},
                     { path: 'categories', children: [
-                        { path:"", component: CategoryComponent },
-                        { path:"form/:id", component: CategoryFormComponent },
-                        { path: "form", component: CategoryFormComponent },
+                        { path: '', component: CategoryComponent },
+                        { path: 'form/:id', component: CategoryFormComponent },
+                        { path: 'form', component: CategoryFormComponent },
                         {
-                            path: ":id", children: [
-                                { path: "", component: CategoryAttrsComponent },
-                                { path: "attributes/:aid", component: CategoryAttrsFormComponent },
-                                { path: "attributes", component: CategoryAttrsFormComponent }
+                            path: ':id', children: [
+                                { path: '', component: CategoryAttrsComponent },
+                                { path: 'attributes/:aid', component: CategoryAttrsFormComponent },
+                                { path: 'attributes', component: CategoryAttrsFormComponent }
                             ]
                         },
                     ]},
                     { path: 'goods', children: [
-                        { path:"", component: GoodComponent },
+                        { path: '', component: GoodComponent },
                         {
-                            path: ":id", children: [
-                                { path: "", component: GoodAttrsComponent },
-                                { path: "attributes/:aid", component: GoodAttrsFormComponent },
-                                { path: "attributes", component: GoodAttrsFormComponent }
+                            path: ':id', children: [
+                                { path: '', component: GoodAttrsComponent },
+                                { path: 'attributes/:aid', component: GoodAttrsFormComponent },
+                                { path: 'attributes', component: GoodAttrsFormComponent }
                             ]
                         },
                     ]},
                     { path: 'collections', children: [
-                        { path: "", component: CollectionComponent },
+                        { path: '', component: CollectionComponent },
                         {
-                            path: "form/:id",
+                            path: 'form/:id',
                             component: CollectionFormComponent
                         },
                         {
-                            path: "form",
+                            path: 'form',
                             component: CollectionFormComponent
                         },
                     ]},

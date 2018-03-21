@@ -13,16 +13,16 @@ import { Output } from '@angular/core';
     templateUrl: './add.html'
 })
 export class UserAddComponent implements OnInit {
-    username: string
+    username: string;
     pwdGroup: {
         old: string,
         new: string,
         confirm: string,
-    }
-    validateForm: FormGroup
-    @Output() onAddFinished = new EventEmitter<boolean>()
+    };
+    validateForm: FormGroup;
+    @Output() onAddFinished = new EventEmitter<boolean>();
     constructor(private user: UserService, private fb: FormBuilder, private _message: NzMessageService) {
-        this._resetPwdGroup()
+        this._resetPwdGroup();
     }
     ngOnInit() {
         this.validateForm = this.fb.group({
@@ -32,29 +32,29 @@ export class UserAddComponent implements OnInit {
                 Validators.required,
                 this._confirmationValidator
             ]]
-        })
+        });
     }
     private _confirmationValidator = (control: AbstractControl) => {
-        let bool: boolean = this.validateForm && control.value !== this.validateForm.controls['newPwd'].value
+        const bool: boolean = this.validateForm && control.value !== this.validateForm.controls['newPwd'].value;
         return bool ? { confirm: true } : null;
-    };
+    }
     submit() {
         this.user.add(this.username, this.pwdGroup.new)
             .subscribe((data: any) => {
-                this._message.success('添加用户成功', { nzDuration             : 3000 })
-                this.onAddFinished.emit(true)
-                this.validateForm.reset()
-            })
+                this._message.success('添加用户成功', { nzDuration: 3000 });
+                this.onAddFinished.emit(true);
+                this.validateForm.reset();
+            });
         }
     cancel() {
-        this.onAddFinished.emit(false)
+        this.onAddFinished.emit(false);
     }
     _resetPwdGroup() {
         this.pwdGroup = {
             old: '',
             new: '',
             confirm: ''
-        }
+        };
     }
     getFormControl(name) {
         return this.validateForm.controls[name];

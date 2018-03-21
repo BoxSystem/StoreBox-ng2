@@ -12,41 +12,41 @@ import { NzMessageService } from 'ng-zorro-antd';
     templateUrl: './index.html'
 })
 export class CategoryComponent implements OnInit {
-    _routerLink = '/admin/categories'
-    _formRouterLink = `${this._routerLink}/form`
-    _dataSet = []
-    _loading = true
-    _total = 1
-    _current = 1
-    _pageSize = 15
-    isVisible = false
-    activeUser: any
-    showAddForm: boolean
+    _routerLink = '/admin/categories';
+    _formRouterLink = `${this._routerLink}/form`;
+    _dataSet = [];
+    _loading = true;
+    _total = 1;
+    _current = 1;
+    _pageSize = 15;
+    isVisible = false;
+    activeUser: any;
+    showAddForm: boolean;
     constructor(private api: CategoryService, private fb: FormBuilder, private _message: NzMessageService) {}
     private _refreshList() {
         this.api.get(null, {
             perNum: this._pageSize,
             page: this._current
         }).subscribe((data: any) => {
-            this._loading = false
-            this._dataSet = data.data
-            this._total = data.total
-        })
+            this._loading = false;
+            this._dataSet = data.data;
+            this._total = data.total;
+        });
     }
     ngOnInit() {
-        this.showAddForm = false
-        this._refreshList()
+        this.showAddForm = false;
+        this._refreshList();
     }
     addEvent(status: boolean) {
-        this.showAddForm = false
+        this.showAddForm = false;
         if (status) {
-            this._refreshList()
+            this._refreshList();
         }
     }
     del(data) {
         this.api.del(data._id).subscribe(() => {
-            this._message.success('删除成功！')
-            this._refreshList()
-        })
+            this._message.success('删除成功！');
+            this._refreshList();
+        });
     }
 }

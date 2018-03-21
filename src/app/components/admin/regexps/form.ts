@@ -20,15 +20,15 @@ export class RegexpFormComponent implements OnInit {
         name: '',
         value: '',
         link: ''
-    }
-    selectedLinkId: string
-    oldName: string
-    oldValue: string
+    };
+    selectedLinkId: string;
+    oldName: string;
+    oldValue: string;
     categories: {
         name: string
-    }
-    validateForm: FormGroup
-    @Output() onAddSaved = new EventEmitter<boolean>()
+    };
+    validateForm: FormGroup;
+    @Output() onAddSaved = new EventEmitter<boolean>();
     constructor(
         private api: RegexpService,
         private catApi: CategoryService,
@@ -38,34 +38,34 @@ export class RegexpFormComponent implements OnInit {
         private router: Router
     ) {}
     ngOnInit() {
-        this.catApi.get().subscribe((data:any) => {
-            this.categories = data.data
-        })
+        this.catApi.get().subscribe((data: any) => {
+            this.categories = data.data;
+        });
         this.acRoute.paramMap.map((params) => {
-            return params.get('id')
+            return params.get('id');
         }).subscribe((id) => {
             if (!id) { return; }
-            this.api.get(id).subscribe((element:any) => {
-                this.regexpItem = element
-                this.selectedLinkId = element.link && element.link._id
-                this.oldName = element.name
-                this.oldValue = element.value
-            })
-        })
+            this.api.get(id).subscribe((element: any) => {
+                this.regexpItem = element;
+                this.selectedLinkId = element.link && element.link._id;
+                this.oldName = element.name;
+                this.oldValue = element.value;
+            });
+        });
         this.validateForm = this.fb.group({
             name: [this.regexpItem.name, [Validators.required]],
             value: [this.regexpItem.name, [
                 Validators.required, this._isRegExp
             ]],
             link: [this.regexpItem.name, []],
-        })
+        });
     }
     _isRegExp = (control: AbstractControl) => {
-        let bool: boolean = true
+        let bool = true;
         if (this.validateForm) {
             try {
                 const reg = new RegExp(control.value);
-                bool = false
+                bool = false;
             } catch (error) {
                 bool = true;
             }
@@ -74,31 +74,31 @@ export class RegexpFormComponent implements OnInit {
     }
     submit() {
         let subs;
-        this.regexpItem.link = this.selectedLinkId
+        this.regexpItem.link = this.selectedLinkId;
         if (this.regexpItem._id) {
-            let body = Object.assign({}, this.regexpItem)
+            const body = Object.assign({}, this.regexpItem);
             if (this.oldName === body.name) {
-                delete body.name
+                delete body.name;
             }
             if (this.oldValue === body.value) {
-                delete body.value
+                delete body.value;
             }
-            subs = this.api.save(this.regexpItem._id, body)
+            subs = this.api.save(this.regexpItem._id, body);
         } else {
-            subs = this.api.add(this.regexpItem)
+            subs = this.api.add(this.regexpItem);
         }
         subs.subscribe((data: any) => {
-            this._message.success('执行成功', { nzDuration: 3000 })
+            this._message.success('执行成功', { nzDuration: 3000 });
             if (this.regexpItem._id) {
-                this.router.navigate(['admin/regexps'])
+                this.router.navigate(['admin/regexps']);
             } else {
-                this.onAddSaved.emit(true)
-                this.validateForm.reset()
+                this.onAddSaved.emit(true);
+                this.validateForm.reset();
             }
-        })
+        });
     }
     cancel() {
-        this.onAddSaved.emit(false)
+        this.onAddSaved.emit(false);
     }
     getFormControl(name) {
         return this.validateForm.controls[name];

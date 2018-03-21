@@ -11,11 +11,11 @@ import { NzMessageService } from 'ng-zorro-antd';
     templateUrl: './form.html'
 })
 export class UserFormComponent implements OnInit {
-    Item:any = {
+    Item: any = {
         nickname: ''
-    }
-    oldNickName: string
-    validateForm: FormGroup
+    };
+    oldNickName: string;
+    validateForm: FormGroup;
     constructor(
         private api: UserService,
         private fb: FormBuilder,
@@ -25,35 +25,35 @@ export class UserFormComponent implements OnInit {
     ) {}
     ngOnInit() {
         this.acRoute.paramMap.map((params) => {
-            return params.get('id')
+            return params.get('id');
         }).subscribe((id) => {
             if (!id) { return; }
             this.api.get(id).subscribe((element: any) => {
-                this.Item = element
-                this.oldNickName = element.name
-            })
-        })
+                this.Item = element;
+                this.oldNickName = element.name;
+            });
+        });
         this.validateForm = this.fb.group({
             nickname: [this.Item.nickname, [Validators.required]],
-        })
+        });
     }
     submit() {
         let subs;
         if (this.Item._id) {
-            let body = Object.assign({}, this.Item)
+            const body = Object.assign({}, this.Item);
             if (this.oldNickName === body.nickname) {
-                delete body.nickname
+                delete body.nickname;
             }
-            subs = this.api.save(this.Item._id, body)
+            subs = this.api.save(this.Item._id, body);
         } else {
             return;
         }
         subs.subscribe((data: any) => {
-            this._message.success('执行成功', { nzDuration: 3000 })
+            this._message.success('执行成功', { nzDuration: 3000 });
             if (this.Item._id) {
-                this.router.navigate(['admin/users'])
+                this.router.navigate(['admin/users']);
             }
-        })
+        });
     }
     getFormControl(name) {
         return this.validateForm.controls[name];

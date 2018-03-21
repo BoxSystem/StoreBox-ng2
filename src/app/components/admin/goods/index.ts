@@ -14,36 +14,36 @@ import { NzUploadComponent } from 'ng-zorro-antd';
     templateUrl: './index.html'
 })
 export class GoodComponent implements OnInit {
-    _routerLink = '/admin/goods'
-    _formRouterLink = `${this._routerLink}/form`
-    _dataSet = []
-    _loading = true
-    _total = 1
-    _current = 1
-    _pageSize = 10
-    isVisible = false
-    activeUser: any
-    isUploading = false
-    uploadUrl: string
+    _routerLink = '/admin/goods';
+    _formRouterLink = `${this._routerLink}/form`;
+    _dataSet = [];
+    _loading = true;
+    _total = 1;
+    _current = 1;
+    _pageSize = 10;
+    isVisible = false;
+    activeUser: any;
+    isUploading = false;
+    uploadUrl: string;
     @ViewChild('fileInput') fileInput;
     constructor(private api: GoodService, private fb: FormBuilder, private _message: NzMessageService, private file: FileService) {}
     private _refreshList() {
-        this.uploadUrl = this.api.apiUrl
+        this.uploadUrl = this.api.apiUrl;
         this.api.get(null, {
             perNum: this._pageSize,
             page: this._current
         }).subscribe((data: any) => {
-            this._loading = false
-            this._dataSet = data.data
-            this._total = data.total
-        })
+            this._loading = false;
+            this._dataSet = data.data;
+            this._total = data.total;
+        });
     }
     ngOnInit() {
-        this._refreshList()
+        this._refreshList();
     }
     downloadFile(data) {
-        let url = this.file.downloadUrl(data.category, data._id)
-        window.open(url)
+        const url = this.file.downloadUrl(data.category, data._id);
+        window.open(url);
     }
     handleChange({ file, fileList }) {
         const status = file.status;
@@ -52,7 +52,7 @@ export class GoodComponent implements OnInit {
         }
         if (status === 'done') {
             this._message.success(`${file.name} 上传成功.`);
-            this._refreshList()
+            this._refreshList();
         } else if (status === 'error') {
             this._message.error(`${file.name} 上传失败.`);
         }

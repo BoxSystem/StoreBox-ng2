@@ -12,9 +12,9 @@ import { NzInputDirectiveComponent } from 'ng-zorro-antd';
 import { Output } from '@angular/core';
 
 class Attrs {
-    _id: string = ''
-    key: string = ''
-    value: string = ''
+    _id = '';
+    key = '';
+    value = '';
 }
 
 
@@ -23,15 +23,15 @@ class Attrs {
     templateUrl: './attributes.form.html'
 })
 export class GoodAttrsFormComponent implements OnInit {
-    _listLink = '/admin/goods'
-    item = new Attrs()
-    old = new Attrs()
+    _listLink = '/admin/goods';
+    item = new Attrs();
+    old = new Attrs();
     good = {
         _id: '',
         attributes: []
-    }
-    validateForm: FormGroup
-    @Output() onAddFinished = new EventEmitter<boolean>()
+    };
+    validateForm: FormGroup;
+    @Output() onAddFinished = new EventEmitter<boolean>();
     constructor(
         private api: GoodService,
         private fb: FormBuilder,
@@ -41,47 +41,47 @@ export class GoodAttrsFormComponent implements OnInit {
     ) {}
     ngOnInit() {
         this.acRoute.paramMap.map((params) => {
-            return { cid: params.get('id'), aid: params.get('aid') }
+            return { cid: params.get('id'), aid: params.get('aid') };
         }).subscribe((params) => {
-            this.api.get(params.cid).subscribe((data:any) => {
-                this.good = data
-                let attrs = this.good.attributes
-                for (const key in attrs) {
-                    let element = attrs[key];
+            this.api.get(params.cid).subscribe((data: any) => {
+                this.good = data;
+                const attrs = this.good.attributes;
+                for (const key of Object.keys(attrs)) {
+                    const element = attrs[key];
                     if (element._id === params.aid) {
-                        this.item = element
-                        this.old = element
+                        this.item = element;
+                        this.old = element;
                     }
                 }
-            })
-        })
+            });
+        });
         this.validateForm = this.fb.group({
             key: [this.item.key, [Validators.required]],
             value: [this.item.value, [Validators.required]],
-        })
+        });
     }
     submit() {
         let subs;
-        let body = Object.assign({}, this.item)
-        delete body._id
+        const body = Object.assign({}, this.item);
+        delete body._id;
         if (this.item._id) {
             subs = this.api.saveAttrs(
                 this.good._id, this.item._id, body
-            )
+            );
         } else {
-            subs = this.api.addAttrs(this.good._id, body)
+            subs = this.api.addAttrs(this.good._id, body);
         }
         subs.subscribe((data: any) => {
-            this._message.success('执行成功', { nzDuration: 3000 })
+            this._message.success('执行成功', { nzDuration: 3000 });
             if (this.item._id) {
-                this.router.navigate([this._listLink, this.good._id])
+                this.router.navigate([this._listLink, this.good._id]);
             } else {
-                this.onAddFinished.emit(true)
+                this.onAddFinished.emit(true);
             }
-        })
+        });
     }
     cancel() {
-        this.onAddFinished.emit(false)
+        this.onAddFinished.emit(false);
     }
     getFormControl(name) {
         return this.validateForm.controls[name];

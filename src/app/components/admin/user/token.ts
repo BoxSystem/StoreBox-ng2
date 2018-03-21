@@ -13,13 +13,13 @@ import { NzMessageService } from 'ng-zorro-antd';
     templateUrl: './token.html'
 })
 export class TokenComponent implements OnInit {
-    _dataSet = []
-    _loading = true
-    _total = 1
-    _current = 1
-    isVisible = false
-    validateForm: FormGroup
-    uid: string
+    _dataSet = [];
+    _loading = true;
+    _total = 1;
+    _current = 1;
+    isVisible = false;
+    validateForm: FormGroup;
+    uid: string;
     constructor(
         private user: UserService,
         private fb: FormBuilder,
@@ -29,24 +29,24 @@ export class TokenComponent implements OnInit {
     ) {}
     private _refreshList() {
         this.acRoute.paramMap.map((params) => {
-            return params.get('id')
+            return params.get('id');
         }).subscribe((uid) => {
-            this.uid = uid
+            this.uid = uid;
             this.user.getTokens(uid).subscribe((data: any) => {
-                this._loading = false
-                this._dataSet = data.data
-                this._total = data.total
-            })
-        })
+                this._loading = false;
+                this._dataSet = data.data;
+                this._total = data.total;
+            });
+        });
     }
     ngOnInit() {
-        this._refreshList()
+        this._refreshList();
     }
     del(data) {
         this.user.delToken(data._id).subscribe(() => {
-            this._message.success('删除成功！')
-            this._refreshList()
-        })
+            this._message.success('删除成功！');
+            this._refreshList();
+        });
     }
     getFormControl(name) {
         return this.validateForm.controls[name];

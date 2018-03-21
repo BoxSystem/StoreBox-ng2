@@ -9,23 +9,23 @@ import { Router } from '@angular/router';
     templateUrl: './index.html'
 })
 export class AuthComponent {
-    username: string
-    password: string
+    username: string;
+    password: string;
     constructor(private router: Router, private Fn: FnService, private authService: AuthService) {
-        this.username = 'root'
-        this.password = 'admin'
+        this.username = 'root';
+        this.password = 'admin';
     }
 
     submitForm() {
         this.authService.login(this.username, this.password)
             .subscribe((data: any) => {
-                let now = new Date()
-                let expires = now.getTime() + data.expires
-                let loginInfo = data
-                loginInfo.expires = expires
-                this.Fn.setUserSess(loginInfo)
-                let redirect = 'admin/home'
-                this.router.navigate([redirect])
-            })
+                const now = new Date();
+                const expires = now.getTime() + data.expires;
+                const loginInfo = data;
+                loginInfo.expires = expires;
+                this.Fn.setUserSess(loginInfo);
+                const redirect = 'admin/home';
+                this.router.navigate([redirect]);
+            });
     }
 }

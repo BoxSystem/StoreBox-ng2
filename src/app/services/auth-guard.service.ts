@@ -9,20 +9,20 @@ import { CanActivateChild } from '@angular/router';
 export class AuthGuard implements CanActivate, CanActivateChild {
     constructor(private Fn: FnService, private router: Router) {}
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        let userData = this.Fn.getUserSess()
-        let now = new Date()
-        let failRedirect = ['admin/auth']
+        const userData = this.Fn.getUserSess();
+        const now = new Date();
+        const failRedirect = ['admin/auth'];
         if (!userData || !userData.expires) {
-            this.router.navigate(['admin/auth'])
-            return false
+            this.router.navigate(['admin/auth']);
+            return false;
         }
         if (userData.expires < now.getTime()) {
-            this.router.navigate(['admin/auth'])
-            return false
+            this.router.navigate(['admin/auth']);
+            return false;
         }
-        return true
+        return true;
     }
     canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.canActivate(route, state)
+        return this.canActivate(route, state);
     }
 }

@@ -13,13 +13,13 @@ import { ApiService } from './api.service';
 
 @Injectable()
 export class AuthService extends ApiService {
-    apiUrl = this.baseApiUrl + '/auth'
+    apiUrl = this.baseApiUrl + '/auth';
     login(username, password) {
-        let url = this.apiUrl + '/login'
-        return this.httpPost(url, {username: username, password: password})
+        const url = this.apiUrl + '/login';
+        return this.httpPost(url, {username: username, password: password});
     }
     logout() {
-        let url = this.apiUrl + '/logout'
-        return this.httpGet(url)
+        const url = this.apiUrl + '/logout';
+        return this.httpGet(url);
     }
 }

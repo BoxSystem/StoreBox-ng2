@@ -12,13 +12,13 @@ import { ApiService } from './api.service';
 
 @Injectable()
 export class FileService extends ApiService {
-    apiUrl = ''
-    downloadUrl(cid:string, gid:string) {
-        let url = `${this.apiUrl}/files/categories/${cid}/goods/${gid}`
-        return url
+    apiUrl = '';
+    downloadUrl(cid: string, gid: string) {
+        const url = `${this.apiUrl}/files/categories/${cid}/goods/${gid}`;
+        return url;
     }
     list() {
-        let url = `${this.apiUrl}/goods`
-        return this.httpGet(url)
+        const url = `${this.apiUrl}/goods`;
+        return this.httpGet(url);
     }
 }

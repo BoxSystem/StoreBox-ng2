@@ -8,18 +8,18 @@ import { Component } from '@angular/core';
     templateUrl: './index.html'
 })
 export class HomeComponent {
-    userData: object
+    userData: object;
     constructor(
         private fn: FnService,
         private auth: AuthService,
         private router: Router
     ) {
-        this.userData = this.fn.getUserSess()
+        this.userData = this.fn.getUserSess();
     }
     logout() {
         this.auth.logout().subscribe(() => {
-            this.fn.clearUserSess()
-            this.router.navigate(['admin/auth'])
-        })
+            this.fn.clearUserSess();
+            this.router.navigate(['admin/auth']);
+        });
     }
 }

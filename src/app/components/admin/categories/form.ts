@@ -23,17 +23,17 @@ export class CategoryFormComponent implements OnInit {
     item: any = {
         name: '',
         tags: [],
-    }
-    oldName: string
-    oldValue: string
-    validateForm: FormGroup
-    inputVisible = false
-    inputValue = ''
-    categories: any
-    selectedPid: string
+    };
+    oldName: string;
+    oldValue: string;
+    validateForm: FormGroup;
+    inputVisible = false;
+    inputValue = '';
+    categories: any;
+    selectedPid: string;
     @ViewChildren('tagInput')
-    private input: QueryList<NzInputComponent>
-    @Output() onAddSaved = new EventEmitter<boolean>()
+    private input: QueryList<NzInputComponent>;
+    @Output() onAddSaved = new EventEmitter<boolean>();
     constructor(
         private api: CategoryService,
         private fb: FormBuilder,
@@ -42,61 +42,61 @@ export class CategoryFormComponent implements OnInit {
         private router: Router
     ) {}
     ngOnInit() {
-        let self = this
+        const self = this;
         this.acRoute.paramMap.map((params) => {
-            return params.get('id')
+            return params.get('id');
         }).subscribe((id) => {
             if (!id) { return; }
             this.api.get()
             .map(data => {
-                    this.categories = data.data
-                    return data.data
+                    this.categories = data.data;
+                    return data.data;
                 })
                 .mergeMap(val => val)
                 .filter((item: any) => item._id === id)
-                .subscribe((data:any) => {
-                    this.item = data
-                    this.oldName = this.item.name
-                    this.oldValue = this.item.value
+                .subscribe((data: any) => {
+                    this.item = data;
+                    this.oldName = this.item.name;
+                    this.oldValue = this.item.value;
                     Observable.of(this.categories)
                         .mergeMap(val => val)
                         .filter((item: any) => {
-                            return item._id === this.item.pid
+                            return item._id === this.item.pid;
                         })
                         .subscribe(data => {
-                            this.selectedPid = data._id
-                        })
-                })
-        })
+                            this.selectedPid = data._id;
+                        });
+                });
+        });
         this.validateForm = this.fb.group({
             name: [this.item.name, [Validators.required]],
             tag: [null, []],
             pid: [null, []],
-        })
+        });
     }
     submit() {
         let subs;
         if (this.item._id) {
-            let body = Object.assign({}, this.item)
+            const body = Object.assign({}, this.item);
             if (this.oldName === body.name) {
-                delete body.name
+                delete body.name;
             }
-            subs = this.api.save(this.item._id, body)
+            subs = this.api.save(this.item._id, body);
         } else {
-            subs = this.api.add(this.item)
+            subs = this.api.add(this.item);
         }
         subs.subscribe((data: any) => {
-            this._message.success('执行成功', { nzDuration: 3000 })
+            this._message.success('执行成功', { nzDuration: 3000 });
             if (this.item._id) {
-                this.router.navigate(['admin/categories'])
+                this.router.navigate(['admin/categories']);
             } else {
-                this.onAddSaved.emit(true)
-                this.validateForm.reset()
+                this.onAddSaved.emit(true);
+                this.validateForm.reset();
             }
-        })
+        });
     }
     cancel() {
-        this.onAddSaved.emit(false)
+        this.onAddSaved.emit(false);
     }
     getFormControl(name) {
         return this.validateForm.controls[name];
@@ -112,7 +112,7 @@ export class CategoryFormComponent implements OnInit {
     showInput(): void {
         this.inputVisible = true;
         setTimeout(() => {
-            let first = this.input.first
+            const first = this.input.first;
             first && first._el.getElementsByTagName('input')[0].focus();
         }, 100);
     }

@@ -13,16 +13,16 @@ import { ApiService } from './api.service';
 
 @Injectable()
 export class CollectionService extends ApiService {
-    apiUrl = this.baseApiUrl + '/collections'
+    apiUrl = this.baseApiUrl + '/collections';
     add(body: { name: string, goods: string[] }) {
-        return this.httpPost(this.apiUrl, body)
+        return this.httpPost(this.apiUrl, body);
     }
     del(id) {
-        let url = `${this.apiUrl}/${id}/delete`
-        return this.httpGet(url)
+        const url = `${this.apiUrl}/${id}/delete`;
+        return this.httpGet(url);
     }
     save(id, body: { name: string, goods: string[] }) {
-        let url = `${this.apiUrl}/${id}`
-        return this.httpPost(url, body)
+        const url = `${this.apiUrl}/${id}`;
+        return this.httpPost(url, body);
     }
 }
