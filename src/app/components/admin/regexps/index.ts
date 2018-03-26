@@ -23,7 +23,7 @@ export class RegexpComponent implements OnInit {
     activeUser: any;
     showAddForm: boolean;
     constructor(private api: RegexpService, private fb: FormBuilder, private _message: NzMessageService) {}
-    private _refreshList() {
+    _refreshList() {
         this.api.get(null, {
             perNum: this._pageSize,
             page: this._current

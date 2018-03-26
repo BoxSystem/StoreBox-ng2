@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
     userData: object;
+    isCollapsed = false;
     constructor(
         private fn: FnService,
         private auth: AuthService,

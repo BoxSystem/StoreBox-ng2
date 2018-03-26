@@ -23,7 +23,7 @@ export class CollectionComponent implements OnInit {
     activeUser: any;
     showAddForm: boolean;
     constructor(private api: CollectionService, private fb: FormBuilder, private _message: NzMessageService) {}
-    private _refreshList() {
+    _refreshList() {
         this.api.get(null, {
             perNum: this._pageSize,
             page: this._current

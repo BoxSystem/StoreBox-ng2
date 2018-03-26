@@ -27,7 +27,7 @@ export class GoodComponent implements OnInit {
     uploadUrl: string;
     @ViewChild('fileInput') fileInput;
     constructor(private api: GoodService, private fb: FormBuilder, private _message: NzMessageService, private file: FileService) {}
-    private _refreshList() {
+    _refreshList() {
         this.uploadUrl = this.api.apiUrl;
         this.api.get(null, {
             perNum: this._pageSize,

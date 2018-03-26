@@ -80,16 +80,14 @@ export class UserComponent implements OnInit {
         this.isVisible = true;
         this.activeUser = data;
     }
-    changePwd() {
+    changePwd($event) {
         this.user.changePassword(
             this.activeUser._id, this.pwdGroup.old, this.pwdGroup.new
         ).subscribe((data) => {
-            console.log(data);
-            // this.isVisible = false
+            this.isVisible = false
         });
     }
-    handleCancel = (e) => {
-        console.log(e);
+    handleCancel($event) {
         this.isVisible = false;
     }
     getFormControl(name) {
