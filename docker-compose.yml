@@ -1,0 +1,6 @@
+storebox_www:
+    build: .
+    ports:
+        - "4200:80"
+    container_name: storebox_www
+    restart: always
