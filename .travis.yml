@@ -1,0 +1,22 @@
+language: node_js
+
+sudo: true
+
+node_js: stable
+
+cache:
+    directories:
+        - node_modules
+
+install:
+    - npm install
+
+script:
+    - npm run build -- --prod
+
+deploy:
+    skip_cleanup: true
+    provider: script
+    script: . ./deploy.sh
+    on:
+        branch: develop
