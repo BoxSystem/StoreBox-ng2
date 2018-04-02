@@ -1,6 +1,18 @@
 {
     "/api/v1": {
-        "target": "http://localhost:9000",
+        "target": "http://server.pbr.link:9000",
+        "secure": false
+    },
+    "/collections": {
+        "target": "http://server.pbr.link:9000",
+        "secure": false
+    },
+    "/files": {
+        "target": "http://server.pbr.link:9000",
+        "secure": false
+    },
+    "/goods": {
+        "target": "http://server.pbr.link:9000",
         "secure": false
     }
 }

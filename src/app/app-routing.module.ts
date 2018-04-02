@@ -1,3 +1,5 @@
+import { FrontGoodService } from './services/front/good.service';
+import { FrontHomeComponent } from './components/front/home/index';
 import { UserFormComponent } from './components/admin/user/form';
 import { CollectionFormComponent } from './components/admin/collections/form';
 import { CollectionComponent } from './components/admin/collections/index';
@@ -32,7 +34,12 @@ import { RegexpService } from './services/regexp.service';
 import { GoodService } from './services/good.service';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'admin', pathMatch: 'full' },
+    {
+        path: '',
+        children: [
+            { path: '', component: FrontHomeComponent },
+        ]
+    },
     {
         path: 'admin',
         children: [
@@ -96,6 +103,7 @@ const routes: Routes = [
 @NgModule({
     declarations: [
         HomeComponent,
+        FrontHomeComponent,
         AuthComponent,
         DashboardComponent,
         UserComponent,
@@ -130,6 +138,7 @@ const routes: Routes = [
         GoodService,
         FileService,
         CollectionService,
+        FrontGoodService,
     ],
     exports: [
         RouterModule,
