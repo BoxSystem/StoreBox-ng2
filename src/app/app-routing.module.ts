@@ -1,3 +1,5 @@
+import { FrontCollectionService } from './services/front/collection.service';
+import { FrontCollectionComponent } from './components/front/collections/index';
 import { FrontGoodService } from './services/front/good.service';
 import { FrontHomeComponent } from './components/front/home/index';
 import { UserFormComponent } from './components/admin/user/form';
@@ -38,6 +40,7 @@ const routes: Routes = [
         path: '',
         children: [
             { path: '', component: FrontHomeComponent },
+            { path: 'c/:name', component: FrontCollectionComponent },
         ]
     },
     {
@@ -102,8 +105,9 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [
-        HomeComponent,
         FrontHomeComponent,
+        FrontCollectionComponent,
+        HomeComponent,
         AuthComponent,
         DashboardComponent,
         UserComponent,
@@ -139,6 +143,7 @@ const routes: Routes = [
         FileService,
         CollectionService,
         FrontGoodService,
+        FrontCollectionService,
     ],
     exports: [
         RouterModule,
