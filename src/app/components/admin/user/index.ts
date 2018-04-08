@@ -84,7 +84,12 @@ export class UserComponent implements OnInit {
         this.user.changePassword(
             this.activeUser._id, this.pwdGroup.old, this.pwdGroup.new
         ).subscribe((data) => {
-            this.isVisible = false
+            if (data.statusCode === 200) {
+                this.isVisible = false;
+                this._message.success('修改密码成功！');
+            } else {
+                this._message.success('修改密码失败！');
+            }
         });
     }
     handleCancel($event) {
