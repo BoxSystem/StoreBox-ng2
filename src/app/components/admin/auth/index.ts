@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 @Component({
     styleUrls: ['./index.css'],
-    selector: 'auth',
+    selector: 'app-admin-auth',
     templateUrl: './index.html'
 })
 export class AuthComponent {
@@ -15,7 +15,6 @@ export class AuthComponent {
         this.username = 'root';
         this.password = 'admin';
     }
-
     submitForm() {
         this.authService.login(this.username, this.password)
             .subscribe((data: any) => {

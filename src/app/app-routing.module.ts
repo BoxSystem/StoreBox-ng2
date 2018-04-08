@@ -1,3 +1,4 @@
+import { SamPasswordEyeComponent } from './components/password-eye/index';
 import { FrontCollectionService } from './services/front/collection.service';
 import { FrontCollectionComponent } from './components/front/collections/index';
 import { FrontGoodService } from './services/front/good.service';
@@ -125,6 +126,7 @@ const routes: Routes = [
         CollectionComponent,
         CollectionFormComponent,
         UserFormComponent,
+        SamPasswordEyeComponent,
     ],
     imports: [
         CommonModule,

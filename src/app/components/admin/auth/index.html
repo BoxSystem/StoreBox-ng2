@@ -17,11 +17,7 @@
                     </div>
                     <div nz-form-item>
                         <div nz-form-control>
-                            <nz-input [(ngModel)]="password" [nzPlaceHolder]="'Password'" [nzSize]="'large'" name="password" nzType="password">
-                                <ng-template #prefix>
-                                    <i class="anticon anticon-lock"></i>
-                                </ng-template>
-                            </nz-input>
+                            <app-password-eye [(value)]="password" [size]="'large'" [name]="password" [PlaceHolder]="'Password'"></app-password-eye>
                         </div>
                     </div>
                     <div nz-form-item>
