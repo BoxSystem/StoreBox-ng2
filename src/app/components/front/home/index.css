@@ -1,0 +1,10 @@
+:host ::ng-deep .logo {
+    height: 31px;
+    margin: 16px 24px 16px 0;
+    float: left;
+    text-align: center;
+}
+:host ::ng-deep .logo img{
+    max-height: 100%;
+    vertical-align: top;
+}

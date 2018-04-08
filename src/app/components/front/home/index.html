@@ -1,6 +1,8 @@
 <nz-layout class="layout">
     <nz-header>
-        <div class="logo"></div>
+        <div class="logo">
+            <img src="assets/imgs//logo.png" alt="storebox">
+        </div>
         <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" style="line-height: 64px;">
             <li nz-menu-item>nav 1</li>
             <li nz-menu-item>nav 2</li>
@@ -52,7 +54,6 @@
                             {{data.md5sum}}
                         </td>
                         <td nz-td>
-                            <span nz-table-divider></span>
                             <a (click)="downloadFile(data)">下载</a>
                         </td>
                     </tr>

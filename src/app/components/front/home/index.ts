@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FileService } from '../../../services/file.service';
 
 @Component({
+    styleUrls: ['./index.css'],
     templateUrl: './index.html'
 })
 export class FrontHomeComponent implements OnInit {
@@ -19,6 +20,7 @@ export class FrontHomeComponent implements OnInit {
     ) {}
     refreshList() {
         this.apiGood.getList({
+            tags: [],
             perNum: this._pageSize,
             page: this._current
         }).subscribe((data: any) => {
