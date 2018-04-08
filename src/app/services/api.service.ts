@@ -31,12 +31,13 @@ export class ApiService {
         return Observable.throw(new Error(errMsg));
     }
     private setOpts(options?) {
-        const opts = options ? Object.assign(options, this.defaultOpts) : this.defaultOpts;
+        const opts = Object.assign({}, this.defaultOpts, options);
         if (opts.params) {
             opts.params = this.handleUrlParameters(opts.params);
         }
         return opts;
     }
+    // 处理http参数
     private handleUrlParameters(params) {
         let httpParams = new HttpParams();
         for (const key of Object.keys(params)) {
@@ -55,6 +56,15 @@ export class ApiService {
         return this.http.post(url, body, options)
             .catch((err: any) => this.handleErr(err));
     }
+    // 保证分页参数完整
+    parsePageParams(params) {
+        const defPage = 1;
+        const defPerNum = 25;
+        return Object.assign({}, {
+            page: defPage,
+            perNum: defPerNum
+        }, params);
+    }
     get(
         id?: string,
         params?: { perNum?: number, page?: number }
@@ -62,9 +72,8 @@ export class ApiService {
         const url = id ? `${this.apiUrl}/${id}` : this.apiUrl;
         let options = null;
         if (!id) {
-            options = {
-                params: params ? params : { perNum: 25, page: 1 }
-            };
+            params = this.parsePageParams(params);
+            options = { params: params };
         }
         return this.httpGet(url, options);
     }
