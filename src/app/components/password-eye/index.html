@@ -1,8 +1,8 @@
-<nz-input [nzType]="type" [(ngModel)]="value" (ngModelChange)="emitVal()" [nzSize]="size" [nzPlaceHolder]="">
+<nz-input [nzType]="type" [(ngModel)]="value" [nzSize]="size" [nzPlaceHolder]="placeholder">
     <ng-template #prefix>
         <i class="anticon anticon-lock"></i>
     </ng-template>
     <ng-template #suffix>
-        <i class="anticon suffix-anticon" [ngClass]="icon" (click)="toggle()"></i>
+        <i class="anticon suffix-anticon" [ngClass]="iconClass" (click)="toggle()"></i>
     </ng-template>
 </nz-input>
