@@ -55,7 +55,7 @@
         </tr>
     </tbody>
 </nz-table>
-<nz-modal #setPwdModal [nzVisible]="isVisible" [nzTitle]="'修改密码'" [nzContent]="modalContent" (nzOnCancel)="handleCancel($event)" (nzOnOk)="changePwd($event)">
+<nz-modal [nzVisible]="isVisible" [nzTitle]="'修改密码'" [nzContent]="modalContent" (nzOnCancel)="handleCancel($event)" (nzOnOk)="changePwd($event)" [nzConfirmLoading]="pwdLoading">
     <ng-template #modalContent>
         <form nz-form [formGroup]="validateForm">
             <div nz-form-item nz-row>
@@ -63,7 +63,7 @@
                     <label nz-form-item-required>旧密码</label>
                 </div>
                 <div nz-form-control nz-col [nzSm]="14" [nzXs]="24">
-                    <nz-input [nzSize]="'large'" [(ngModel)]="pwdGroup.old" formControlName="oldPwd" ></nz-input>
+                    <app-password-eye [(ngModel)]="pwdGroup.old" formControlName="oldPwd"></app-password-eye>
                     <div nz-form-explain *ngIf="getFormControl('oldPwd').hasError('required')">请输入密码</div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
                     <label nz-form-item-required>新密码</label>
                 </div>
                 <div nz-form-control nz-col [nzSm]="14" [nzXs]="24">
-                    <nz-input [nzSize]="'large'" [(ngModel)]="pwdGroup.new" formControlName="newPwd"></nz-input>
+                    <app-password-eye [(ngModel)]="pwdGroup.new" formControlName="newPwd"></app-password-eye>
                     <div nz-form-explain *ngIf="getFormControl('newPwd').hasError('required')">请输入密码</div>
                 </div>
             </div>
@@ -81,9 +81,9 @@
                     <label nz-form-item-required>确认新密码</label>
                 </div>
                 <div nz-form-control nz-col [nzSm]="14" [nzXs]="24">
-                    <nz-input [nzSize]="'large'" [(ngModel)]="pwdGroup.confirm" formControlName="confirmPwd"></nz-input>
+                    <app-password-eye [(ngModel)]="pwdGroup.confirm" formControlName="confirmPwd"></app-password-eye>
                     <div nz-form-explain *ngIf="getFormControl('confirmPwd').hasError('required')">请输入密码</div>
-                    <div nz-form-explain *ngIf="(getFormControl('confirmPwd').dirty||getFormControl('confirmPwd').touched)&&getFormControl('confirmPwd').hasError('confirm')">确认密码不正确</div>
+                    <div nz-form-explain *ngIf="(getFormControl('confirmPwd').dirty||getFormControl('confirmPwd').touched)&&getFormControl('confirmPwd').hasError('confirm')">确认密码不一致</div>
                 </div>
             </div>
         </form>
