@@ -28,7 +28,7 @@ export class ApiService {
         if (err.status === 403) {
             this.router.navigate(['admin/auth']);
         }
-        return Observable.throw(new Error(errMsg));
+        return Observable.throw(errMsg);
     }
     private setOpts(options?) {
         const opts = Object.assign({}, this.defaultOpts, options);
