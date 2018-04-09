@@ -14,11 +14,12 @@ import { ApiService } from '../api.service';
 export class FrontGoodService extends ApiService {
     apiUrl = '/goods';
     getList(
-        params?: { perNum?: number, page?: number }
+        params?: { perNum?: number, page?: number, tags?: string[]}
     ) {
         const url = this.apiUrl;
-        let options = {
-            params: params ? params : { perNum: 25, page: 1 }
+        params = this.parsePageParams(params);
+        const options = {
+            params: params
         };
         return this.httpGet(url, options);
     }
