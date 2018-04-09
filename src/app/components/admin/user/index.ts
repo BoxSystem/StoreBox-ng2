@@ -29,6 +29,7 @@ export class UserComponent implements OnInit {
     };
     validateForm: FormGroup;
     hideAddForm: boolean;
+    public pwdLoading = false;
     constructor(private user: UserService, private fb: FormBuilder, private _message: NzMessageService, private fn: FnService) {
         this.hideAddForm = true;
         this.curUser = this.fn.getUserSess();
@@ -81,9 +82,16 @@ export class UserComponent implements OnInit {
         this.activeUser = data;
     }
     changePwd($event) {
+        if (this.pwdGroup.new !== this.pwdGroup.confirm) {
+            this._message.error('确认密码不一致');
+            return;
+        }
+        this.pwdLoading = true;
         this.user.changePassword(
             this.activeUser._id, this.pwdGroup.old, this.pwdGroup.new
-        ).subscribe((data) => {
+        )
+        .finally(() => this.pwdLoading = false)
+        .subscribe((data) => {
             if (data.statusCode === 200) {
                 this.isVisible = false;
                 this._message.success('修改密码成功！');
