@@ -23,6 +23,7 @@ export class CategoryFormComponent implements OnInit {
     item: any = {
         name: '',
         tags: [],
+        pid: ''
     };
     oldName: string;
     oldValue: string;
@@ -53,6 +54,16 @@ export class CategoryFormComponent implements OnInit {
                     this.categories.push(data);
                 });
             if (!id) { return; }
+            this.api.get(id).subscribe((element: any) => {
+                Object.assign(this.item, element);
+                try {
+                    this.item.pid = this.item.pid._id;
+                } catch (error) {
+                    console.warn('分类pid数据丢失', this.item);
+                }
+                this.oldName = element.name;
+                this.oldValue = element.value;
+            });
         });
         this.validateForm = this.fb.group({
             name: [this.item.name, [Validators.required]],
@@ -99,7 +110,9 @@ export class CategoryFormComponent implements OnInit {
         this.inputVisible = true;
         setTimeout(() => {
             const first = this.input.first;
-            first && first._el.getElementsByTagName('input')[0].focus();
+            if (first) {
+                first._el.getElementsByTagName('input')[0].focus();
+            }
         }, 100);
     }
     handleInputConfirm(): void {
