@@ -1,3 +1,4 @@
+import { FrontGoodsComponent } from './components/front/goods/index';
 import { SamPasswordEyeComponent } from './components/password-eye/index';
 import { FrontCollectionService } from './services/front/collection.service';
 import { FrontCollectionComponent } from './components/front/collections/index';
@@ -40,8 +41,14 @@ const routes: Routes = [
     {
         path: '',
         children: [
-            { path: '', component: FrontHomeComponent },
-            { path: 'c/:name', component: FrontCollectionComponent },
+            {
+                path: '',
+                component: FrontHomeComponent,
+                children: [
+                    { path: '', component: FrontGoodsComponent },
+                    { path: 'c/:name', component: FrontCollectionComponent },
+                ]
+            },
         ]
     },
     {
@@ -107,6 +114,7 @@ const routes: Routes = [
 @NgModule({
     declarations: [
         FrontHomeComponent,
+        FrontGoodsComponent,
         FrontCollectionComponent,
         HomeComponent,
         AuthComponent,

@@ -24,9 +24,10 @@ export class FrontCollectionComponent implements OnInit {
             perNum: this._pageSize,
             page: this._current
         }).subscribe((data: any) => {
+            const goods = data.goods;
             this._loading = false;
-            this._dataSet = data.data;
-            this._total = data.total;
+            this._dataSet = goods.data;
+            this._total = goods.total;
         });
     }
     ngOnInit() {
