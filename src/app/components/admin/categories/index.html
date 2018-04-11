@@ -1,6 +1,6 @@
 <div class="components-table-control-bar">
     <form nz-form [nzLayout]="'inline'">
-        <button nz-button [nzType]="'primary'" (click)="showAddForm=true">
+        <button *ngIf='!showAddForm' nz-button [nzType]="'primary'" (click)="showAddForm=true">
             <span>添加</span>
         </button>
     </form>
