@@ -4,7 +4,7 @@
             <span>添加</span>
         </button>
     </form>
-    <category-form *ngIf='showAddForm' (onAddSaved)="addEvent($event)"></category-form>
+    <app-category-form *ngIf='showAddForm' (onAddSaved)="addEvent($event)"></app-category-form>
 </div>
 <nz-table #nzTable [nzAjaxData]="_dataSet" [nzLoading]="_loading" [nzTotal]="_total" [nzPageSize]="_pageSize" [(nzPageIndex)]="_current" (nzPageIndexChange)="_refreshList()">
     <thead nz-thead>

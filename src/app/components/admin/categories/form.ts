@@ -16,7 +16,7 @@ import { EventEmitter } from '@angular/core';
 import { ViewChildren } from '@angular/core';
 
 @Component({
-    selector: 'category-form',
+    selector: 'app-category-form',
     templateUrl: './form.html'
 })
 export class CategoryFormComponent implements OnInit {
@@ -29,7 +29,7 @@ export class CategoryFormComponent implements OnInit {
     validateForm: FormGroup;
     inputVisible = false;
     inputValue = '';
-    categories: any;
+    categories = [];
     selectedPid: string;
     @ViewChildren('tagInput')
     private input: QueryList<NzInputComponent>;
@@ -46,27 +46,13 @@ export class CategoryFormComponent implements OnInit {
         this.acRoute.paramMap.map((params) => {
             return params.get('id');
         }).subscribe((id) => {
-            if (!id) { return; }
-            this.api.get()
-            .map(data => {
-                    this.categories = data.data;
-                    return data.data;
-                })
-                .mergeMap(val => val)
-                .filter((item: any) => item._id === id)
+            this.api.get().map(data => data.data)
+                .mergeMap(data => data)
+                .filter((item: any) => item._id !== id)
                 .subscribe((data: any) => {
-                    this.item = data;
-                    this.oldName = this.item.name;
-                    this.oldValue = this.item.value;
-                    Observable.of(this.categories)
-                        .mergeMap(val => val)
-                        .filter((item: any) => {
-                            return item._id === this.item.pid;
-                        })
-                        .subscribe(data => {
-                            this.selectedPid = data._id;
-                        });
+                    this.categories.push(data);
                 });
+            if (!id) { return; }
         });
         this.validateForm = this.fb.group({
             name: [this.item.name, [Validators.required]],
