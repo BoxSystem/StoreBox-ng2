@@ -1,3 +1,5 @@
+import { TagFormComponent } from './components/admin/tags/form';
+import { TagComponent } from './components/admin/tags/index';
 import { FrontGoodsComponent } from './components/front/goods/index';
 import { SamPasswordEyeComponent } from './components/password-eye/index';
 import { FrontCollectionService } from './services/front/collection.service';
@@ -36,6 +38,7 @@ import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { RegexpService } from './services/regexp.service';
 import { GoodService } from './services/good.service';
+import { TagService } from './services/tag.service';
 
 const routes: Routes = [
     {
@@ -71,6 +74,11 @@ const routes: Routes = [
                         { path: '', component: RegexpComponent },
                         { path: 'form/:id', component: RegexpFormComponent },
                         { path: 'form', component: RegexpFormComponent },
+                    ]},
+                    { path: 'tags', children: [
+                        { path: '', component: TagComponent },
+                        { path: 'form/:id', component: TagFormComponent },
+                        { path: 'form', component: TagFormComponent },
                     ]},
                     { path: 'categories', children: [
                         { path: '', component: CategoryComponent },
@@ -113,6 +121,8 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [
+        TagComponent,
+        TagFormComponent,
         FrontHomeComponent,
         FrontGoodsComponent,
         FrontCollectionComponent,
@@ -152,6 +162,7 @@ const routes: Routes = [
         GoodService,
         FileService,
         CollectionService,
+        TagService,
         FrontGoodService,
         FrontCollectionService,
     ],
