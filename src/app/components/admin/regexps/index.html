@@ -1,10 +1,10 @@
 <div class="components-table-control-bar">
     <form nz-form [nzLayout]="'inline'">
-        <button nz-button [nzType]="'primary'"  (click)="showAddForm=true">
+        <button nz-button [nzType]="'primary'"  (click)="showAddForm=true" *ngIf='!showAddForm'>
             <span>添加</span>
         </button>
     </form>
-    <regexp-form *ngIf='showAddForm' (onAddSaved)="addEvent($event)"></regexp-form>
+<app-regexp-form *ngIf='showAddForm' (onAddSaved)="addEvent($event)" [regexpItem]="cloneItem"></app-regexp-form>
 </div>
 <nz-table #nzTable [nzAjaxData]="_dataSet" [nzLoading]="_loading" [nzTotal]="_total" [nzPageSize]="_pageSize" [(nzPageIndex)]="_current" (nzPageIndexChange)="_refreshList()">
     <thead nz-thead>
@@ -34,6 +34,8 @@
             </td>
             <td nz-td>
                 <a [routerLink]="[_formRouterLink, data._id]">修改</a>
+                <span nz-table-divider></span>
+                <a (click)="clone(data)">复制</a>
                 <span nz-table-divider></span>
                 <nz-popconfirm [nzTitle]="'确定要删除吗？'" (nzOnConfirm)="del(data)">
                     <a nz-popconfirm>删除</a>

@@ -6,6 +6,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
+import { RegexpDoc } from './regexp.doc';
 
 @Component({
     styleUrls: ['./index.css'],
@@ -20,7 +21,7 @@ export class RegexpComponent implements OnInit {
     _current = 1;
     _pageSize = 10;
     isVisible = false;
-    activeUser: any;
+    cloneItem = new RegexpDoc();
     showAddForm: boolean;
     constructor(private api: RegexpService, private fb: FormBuilder, private _message: NzMessageService) {}
     _refreshList() {
@@ -45,6 +46,16 @@ export class RegexpComponent implements OnInit {
     }
     showFormEvent(status: boolean) {
         this.showAddForm = status;
+    }
+    clone(data) {
+        this.showAddForm = true;
+        this.cloneItem = Object.assign({}, data);
+        delete this.cloneItem._id;
+        try {
+            this.cloneItem.link = data.link._id;
+        } catch (error) {
+            console.log('被复制正则没有关联分类');
+        }
     }
     del(data) {
         this.api.del(data._id).subscribe(() => {

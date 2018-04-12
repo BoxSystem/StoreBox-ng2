@@ -22,7 +22,7 @@
             <label nz-form-item-required>关联</label>
         </div>
         <div nz-form-control nz-col [nzMd]="4" [nzSm]="6" [nzXs]="24">
-            <nz-select [(ngModel)]="selectedLinkId" [nzPlaceHolder]="'choose option'" formControlName="link" nzAllowClear>
+            <nz-select [(ngModel)]="regexpItem.link" [nzPlaceHolder]="'choose option'" formControlName="link" nzAllowClear>
                 <nz-option *ngFor="let option of categories" [nzLabel]="option.name" [nzValue]="option._id">
                 </nz-option>
             </nz-select>

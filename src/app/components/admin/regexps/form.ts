@@ -1,6 +1,7 @@
+import { RegexpDoc } from './regexp.doc';
 import { CategoryService } from './../../../services/category.service';
 import { RegexpService } from './../../../services/regexp.service';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
@@ -12,15 +13,12 @@ import { Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 
 @Component({
-    selector: 'regexp-form',
+    selector: 'app-regexp-form',
     templateUrl: './form.html'
 })
 export class RegexpFormComponent implements OnInit {
-    regexpItem: any = {
-        name: '',
-        value: '',
-        link: ''
-    };
+    @Input()
+    regexpItem = new RegexpDoc();
     selectedLinkId: string;
     oldName: string;
     oldValue: string;
@@ -47,7 +45,11 @@ export class RegexpFormComponent implements OnInit {
             if (!id) { return; }
             this.api.get(id).subscribe((element: any) => {
                 this.regexpItem = element;
-                this.selectedLinkId = element.link && element.link._id;
+                try {
+                    this.regexpItem.link = element.link._id;
+                } catch (error) {
+                    console.log('正则没有关联分类');
+                }
                 this.oldName = element.name;
                 this.oldValue = element.value;
             });
@@ -74,7 +76,6 @@ export class RegexpFormComponent implements OnInit {
     }
     submit() {
         let subs;
-        this.regexpItem.link = this.selectedLinkId;
         if (this.regexpItem._id) {
             const body = Object.assign({}, this.regexpItem);
             if (this.oldName === body.name) {
