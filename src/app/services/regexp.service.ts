@@ -14,28 +14,11 @@ import { ApiService } from './api.service';
 @Injectable()
 export class RegexpService extends ApiService {
     apiUrl = this.baseApiUrl + '/regexps';
-    get(
-        id?: string,
-        params?: { perNum?: number, page?: number }
-    ) {
-        const url = this.apiUrl;
-        const options = {
-            params: params ? params : { perNum: 25, page: 1 }
-        };
-        let ob = this.httpGet(url, options);
-        if (id) {
-            ob = ob.map(data => data.data)
-                .mergeMap(val => val)
-                .filter((item: any) => item._id === id);
-        }
-        return ob;
-    }
     add(body: { name: string, value: string, link: string }) {
-        return this.httpPost(this.apiUrl, body);
+        return super.add(body);
     }
     del(id) {
-        const url = `${this.apiUrl}/${id}/delete`;
-        return this.httpGet(url);
+        return super.del(id);
     }
     save(id, body: {name: string, value: string, link: string}) {
         const url = `${this.apiUrl}/${id}`;

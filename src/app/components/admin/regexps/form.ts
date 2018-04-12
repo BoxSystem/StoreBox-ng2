@@ -76,21 +76,23 @@ export class RegexpFormComponent implements OnInit {
     }
     submit() {
         let subs;
-        if (this.regexpItem._id) {
+        const _id = this.regexpItem._id;
+        delete this.regexpItem._id;
+        if (_id) {
             const body = Object.assign({}, this.regexpItem);
             if (this.oldName === body.name) {
                 delete body.name;
-            }
+        }
             if (this.oldValue === body.value) {
                 delete body.value;
             }
-            subs = this.api.save(this.regexpItem._id, body);
+            subs = this.api.save(_id, body);
         } else {
             subs = this.api.add(this.regexpItem);
         }
         subs.subscribe((data: any) => {
             this._message.success('执行成功', { nzDuration: 3000 });
-            if (this.regexpItem._id) {
+            if (_id) {
                 this.router.navigate(['admin/regexps']);
             } else {
                 this.onAddSaved.emit(true);
