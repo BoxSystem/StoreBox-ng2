@@ -46,14 +46,24 @@ export class ApiService {
         }
         return httpParams;
     }
-    protected httpGet(url, options?) {
+    protected httpGet(url, options?: { params?: any }) {
         options = this.setOpts(options);
         return this.http.get(url, options)
             .catch((err: any) => this.handleErr(err));
     }
-    protected httpPost(url, body, options?) {
+    protected httpPost(url, body, options?: { params?: any }) {
         options = this.setOpts(options);
         return this.http.post(url, body, options)
+        .catch((err: any) => this.handleErr(err));
+    }
+    protected httpPut(url, body, options?: { params?: any }) {
+        options = this.setOpts(options);
+        return this.http.put(url, body, options)
+        .catch((err: any) => this.handleErr(err));
+    }
+    protected httpDelete(url, options?: { params?: any }) {
+        options = this.setOpts(options);
+        return this.http.delete(url, options)
             .catch((err: any) => this.handleErr(err));
     }
     // 保证分页参数完整
@@ -76,5 +86,16 @@ export class ApiService {
             options = { params: params };
         }
         return this.httpGet(url, options);
+    }
+    del(id) {
+        const url = `${this.apiUrl}/${id}`;
+        return this.httpDelete(url);
+    }
+    add(body: any) {
+        return this.httpPost(this.apiUrl, body);
+    }
+    save(id, body: any) {
+        const url = `${this.apiUrl}/${id}`;
+        return this.httpPut(url, body);
     }
 }
