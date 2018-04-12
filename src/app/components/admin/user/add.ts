@@ -39,7 +39,7 @@ export class UserAddComponent implements OnInit {
         return bool ? { confirm: true } : null;
     }
     submit() {
-        this.user.add(this.username, this.pwdGroup.new)
+        this.user.addUser(this.username, this.pwdGroup.new)
             .subscribe((data: any) => {
                 this._message.success('添加用户成功', { nzDuration: 3000 });
                 this.onAddFinished.emit(true);

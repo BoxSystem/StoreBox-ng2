@@ -15,7 +15,7 @@ import { ApiService } from './api.service';
 export class UserService extends ApiService {
     apiUrl = this.baseApiUrl + '/users';
     apiTokenUrl = this.baseApiUrl + '/tokens';
-    add(username, password) {
+    addUser(username, password) {
         const body = {
             username: username,
             password: password
