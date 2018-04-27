@@ -10,22 +10,10 @@
     </div>
     <div nz-form-item nz-row>
         <div nz-form-label nz-col [nzMd]="2" [nzSm]="4" [nzXs]="24">
-            <label nz-form-item-required>已有文件</label>
-        </div>
-        <div nz-form-control nz-col [nzMd]="10">
-            <ul>
-                <li *ngFor="let good of cItem.goods" >
-                    {{good.originname}}
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div nz-form-item nz-row>
-        <div nz-form-label nz-col [nzMd]="2" [nzSm]="4" [nzXs]="24">
             <label nz-form-item-required>关联文件</label>
         </div>
         <div nz-form-control nz-col [nzMd]="6" [nzSm]="6" [nzXs]="24">
-            <nz-select [(ngModel)]="selectedGoods" [nzMode]="'multiple'" [nzPlaceHolder]="'choose option'" formControlName="goods" (nzScrollToBottom)="scrollToBottom()" nzAllowClear nzShowSearch>
+            <nz-select [(ngModel)]="cItem.goods" [nzMode]="'multiple'" [nzPlaceHolder]="'choose option'" formControlName="goods" (nzScrollToBottom)="scrollToBottom()" nzAllowClear nzShowSearch>
                 <nz-option *ngFor="let option of goods" [nzLabel]="option.originname" [nzValue]="option._id">
                 </nz-option>
                 <nz-option [nzLabel]="'disabled'" [nzDisabled]="true" [nzValue]="'disabled'" *ngIf="selectLoading">
@@ -35,6 +23,18 @@
                 </nz-option>
             </nz-select>
             <div nz-form-explain *ngIf="getFormControl('goods').hasError('required')">请输入数据</div>
+        </div>
+    </div>
+    <div nz-form-item nz-row *ngIf="cItem._id">
+        <div nz-form-label nz-col [nzMd]="2" [nzSm]="4" [nzXs]="24">
+            <label>已有文件</label>
+        </div>
+        <div nz-form-control nz-col [nzMd]="10">
+            <ul>
+                <li *ngFor="let good of selectedGoods">
+                    {{good.originname}}
+                </li>
+            </ul>
         </div>
     </div>
     <div nz-form-item nz-row>

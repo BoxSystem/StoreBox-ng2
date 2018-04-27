@@ -21,7 +21,6 @@ export class CollectionFormComponent implements OnInit {
         goods: [],
     };
     cItemKeys: any;
-    selectedLinkId: string;
     oldName: string;
     selectedGoods: any;
     goods: any;
@@ -54,15 +53,17 @@ export class CollectionFormComponent implements OnInit {
             if (!id) { return; }
             this.api.get(id).subscribe((data: any) => {
                 this.cItem = data;
+                this.selectedGoods = this.cItem.goods.data
+                const goods = [];
                 try {
-                    const goods = [];
-                    for (const key of Object.keys(this.cItem.goods)) {
-                        goods.push(this.cItem.goods[key]._id);
+                    for (const key of Object.keys(this.cItem.goods.data)) {
+                        const element = this.cItem.goods.data[key];
+                        goods.push(element._id);
                     }
-                    this.selectedGoods = goods;
                 } catch (error) {
                     console.error('文件夹没有文件数据', error);
                 }
+                this.cItem.goods = goods;
                 this.oldName = data.name;
             });
         });
@@ -70,11 +71,9 @@ export class CollectionFormComponent implements OnInit {
             name: [this.cItem.name, [Validators.required]],
             goods: [this.cItem.goods, [Validators.required]],
         });
-        console.log(Object.keys(this.cItem));
     }
     submit() {
         let subs;
-        this.cItem.goods = this.selectedGoods;
         if (this.cItem._id) {
             const body = Object.assign({}, this.cItem);
             if (this.oldName === body.name) {
