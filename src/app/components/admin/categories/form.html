@@ -10,7 +10,7 @@
     </div>
     <div nz-form-item nz-row>
         <div nz-form-label nz-col [nzMd]="3" [nzSm]="4" [nzXs]="24">
-            <label nz-form-item-required>标签</label>
+            <label>标签</label>
         </div>
         <div nz-form-control nz-col [nzMd]="4" [nzSm]="10" [nzXs]="24">
             <nz-tag *ngFor="let tag of item.tags; let i = index;" [nzClosable]="true" (nzClose)="handleClose(tag)">
