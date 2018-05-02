@@ -55,8 +55,12 @@
         </nz-header>
         <nz-content class="main-content">
             <nz-breadcrumb class="breadcrumb">
-                <nz-breadcrumb-item>Home</nz-breadcrumb-item>
-                <nz-breadcrumb-item></nz-breadcrumb-item>
+                <nz-breadcrumb-item>
+                    <a [routerLink]="['/admin']">首页</a>
+                </nz-breadcrumb-item>
+                <nz-breadcrumb-item *ngFor="let item of breadcrumbItems" >
+                    <a [routerLink]="[item.url]">{{item.label}}</a>
+                </nz-breadcrumb-item>
             </nz-breadcrumb>
             <div class="outler-wrap">
                 <router-outlet></router-outlet>

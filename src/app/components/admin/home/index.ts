@@ -1,9 +1,11 @@
+import { SamBreadcrumbService } from './../../../services/breadcrumb.service';
 import {
     SamSpinService
 } from './../../spinner/service';
 import {
     Router,
-    NavigationStart
+    NavigationStart,
+    NavigationEnd,
 } from '@angular/router';
 import {
     AuthService
@@ -22,17 +24,23 @@ import {
 export class HomeComponent {
     userData: object;
     isCollapsed = false;
+    breadcrumbItems: any;
     constructor(
         private fn: FnService,
         private auth: AuthService,
         private router: Router,
-        public spin: SamSpinService
+        public spin: SamSpinService,
+        public breadcrumb: SamBreadcrumbService
     ) {
         this.userData = this.fn.getUserSess();
-        router.events
-            .filter(event => event instanceof NavigationStart).subscribe(event => {
+        router.events.subscribe(event => {
+            if (event instanceof NavigationStart) {
                 this.spin.start();
-            });
+            }
+            if (event instanceof NavigationEnd) {
+                this.breadcrumbItems = this.breadcrumb.getBreadcrumbs();
+            }
+        });
     }
     logout() {
         this.auth.logout().subscribe(() => {
