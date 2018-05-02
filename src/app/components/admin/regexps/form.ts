@@ -1,3 +1,4 @@
+import { SamSpinService } from './../../spinner/service';
 import { RegexpDoc } from './regexp.doc';
 import { CategoryService } from './../../../services/category.service';
 import { RegexpService } from './../../../services/regexp.service';
@@ -33,7 +34,8 @@ export class RegexpFormComponent implements OnInit {
         private fb: FormBuilder,
         private _message: NzMessageService,
         private acRoute: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        public spin: SamSpinService
     ) {}
     ngOnInit() {
         this.catApi.get().subscribe((data: any) => {
@@ -42,8 +44,9 @@ export class RegexpFormComponent implements OnInit {
         this.acRoute.paramMap.map((params) => {
             return params.get('id');
         }).subscribe((id) => {
-            if (!id) { return; }
+            if (!id) { this.spin.stop(); return; }
             this.api.get(id).subscribe((element: any) => {
+                this.spin.stop();
                 this.regexpItem = element;
                 try {
                     this.regexpItem.link = element.link._id;

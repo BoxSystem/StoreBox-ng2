@@ -1,3 +1,4 @@
+import { SamSpinService } from './../../spinner/service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from './../../../services/user.service';
 import { Component } from '@angular/core';
@@ -21,14 +22,16 @@ export class UserFormComponent implements OnInit {
         private fb: FormBuilder,
         private _message: NzMessageService,
         private acRoute: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        public spin: SamSpinService
     ) {}
     ngOnInit() {
         this.acRoute.paramMap.map((params) => {
             return params.get('id');
         }).subscribe((id) => {
-            if (!id) { return; }
+            if (!id) { this.spin.stop(); return; }
             this.api.get(id).subscribe((element: any) => {
+                this.spin.stop();
                 this.Item = element;
                 this.oldNickName = element.name;
             });

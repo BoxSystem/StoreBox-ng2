@@ -1,3 +1,4 @@
+import { SamSpinService } from './../../spinner/service';
 import { GoodService } from './../../../services/good.service';
 import { CollectionService } from './../../../services/collection.service';
 import { Component } from '@angular/core';
@@ -40,7 +41,8 @@ export class CollectionFormComponent implements OnInit {
         private fb: FormBuilder,
         private _message: NzMessageService,
         private acRoute: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        public spin: SamSpinService
     ) {}
     ngOnInit() {
         this.getGoodsOpt(this.goodsPage).subscribe((data: any) => {
@@ -50,8 +52,9 @@ export class CollectionFormComponent implements OnInit {
         this.acRoute.paramMap.map((params) => {
             return params.get('id');
         }).subscribe((id) => {
-            if (!id) { return; }
+            if (!id) { this.spin.stop(); return; }
             this.api.get(id).subscribe((data: any) => {
+                this.spin.stop();
                 this.cItem = data;
                 this.selectedGoods = this.cItem.goods.data
                 const goods = [];

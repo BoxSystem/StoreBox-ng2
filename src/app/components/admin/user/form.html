@@ -1,4 +1,5 @@
-<form nz-form [formGroup]="validateForm" (submit)="submit()">
+<app-sam-spin></app-sam-spin>
+<form nz-form *ngIf="!spin.active"  [formGroup]="validateForm" (submit)="submit()">
     <div nz-form-item nz-row>
         <div nz-form-label nz-col [nzSm]="3" [nzXs]="24">
             <label>用户名</label>

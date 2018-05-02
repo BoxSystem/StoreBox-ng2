@@ -1,3 +1,4 @@
+import { SamSpinComponent } from './components/spinner/index';
 import { TagFormComponent } from './components/admin/tags/form';
 import { TagComponent } from './components/admin/tags/index';
 import { FrontGoodsComponent } from './components/front/goods/index';
@@ -39,6 +40,7 @@ import { AuthService } from './services/auth.service';
 import { RegexpService } from './services/regexp.service';
 import { GoodService } from './services/good.service';
 import { TagService } from './services/tag.service';
+import { SamSpinService } from './components/spinner/service';
 
 const routes: Routes = [
     {
@@ -145,6 +147,7 @@ const routes: Routes = [
         CollectionFormComponent,
         UserFormComponent,
         SamPasswordEyeComponent,
+        SamSpinComponent,
     ],
     imports: [
         CommonModule,
@@ -165,6 +168,7 @@ const routes: Routes = [
         TagService,
         FrontGoodService,
         FrontCollectionService,
+        SamSpinService,
     ],
     exports: [
         RouterModule,

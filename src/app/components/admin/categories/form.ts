@@ -1,3 +1,4 @@
+import { SamSpinService } from './../../spinner/service';
 import { element } from 'protractor';
 import { CategoryService } from './../../../services/category.service';
 import { Component, QueryList } from '@angular/core';
@@ -40,7 +41,8 @@ export class CategoryFormComponent implements OnInit {
         private fb: FormBuilder,
         private _message: NzMessageService,
         private acRoute: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        public spin: SamSpinService
     ) {}
     ngOnInit() {
         const self = this;
@@ -53,8 +55,12 @@ export class CategoryFormComponent implements OnInit {
                 .subscribe((data: any) => {
                     this.categories.push(data);
                 });
-            if (!id) { return; }
+            if (!id) {
+                this.spin.stop();
+                return;
+            }
             this.api.get(id).subscribe((element: any) => {
+                this.spin.stop();
                 Object.assign(this.item, element);
                 try {
                     this.item.pid = this.item.pid._id;

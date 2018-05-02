@@ -1,3 +1,4 @@
+import { SamSpinService } from './../../spinner/service';
 import { TagService } from './../../../services/tag.service';
 import { CategoryService } from './../../../services/category.service';
 import { Component, Input } from '@angular/core';
@@ -40,7 +41,8 @@ export class TagFormComponent implements OnInit {
         private fb: FormBuilder,
         private _message: NzMessageService,
         private acRoute: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        public spin: SamSpinService
     ) {}
     ngOnInit() {
         this.api.cloud().subscribe((data: any) => {
@@ -52,8 +54,9 @@ export class TagFormComponent implements OnInit {
         this.acRoute.paramMap.map((params) => {
             return params.get('id');
         }).subscribe((id) => {
-            if (!id) { return; }
+            if (!id) { this.spin.stop(); return; }
             this.api.get(id).subscribe((element: any) => {
+                this.spin.stop();
                 this.Item = element;
             });
         });
