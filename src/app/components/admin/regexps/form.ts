@@ -80,7 +80,6 @@ export class RegexpFormComponent implements OnInit {
     submit() {
         let subs;
         const _id = this.regexpItem._id;
-        delete this.regexpItem._id;
         if (_id) {
             const body = Object.assign({}, this.regexpItem);
             if (this.oldName === body.name) {

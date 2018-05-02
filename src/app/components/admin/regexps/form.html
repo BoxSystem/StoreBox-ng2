@@ -20,10 +20,11 @@
     </div>
     <div nz-form-item nz-row>
         <div nz-form-label nz-col [nzMd]="2" [nzSm]="4" [nzXs]="24">
-            <label nz-form-item-required>关联</label>
+            <label>关联</label>
         </div>
         <div nz-form-control nz-col [nzMd]="4" [nzSm]="6" [nzXs]="24">
             <nz-select [(ngModel)]="regexpItem.link" [nzPlaceHolder]="'choose option'" formControlName="link" nzAllowClear>
+                <nz-option nzLabel="空" nzValue=""></nz-option>
                 <nz-option *ngFor="let option of categories" [nzLabel]="option.name" [nzValue]="option._id">
                 </nz-option>
             </nz-select>
