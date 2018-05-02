@@ -37,7 +37,7 @@ export class SamBreadcrumbService {
             return breadcrumbs;
         }
         if(!url) {
-            url = route.url.value.map(segment => segment.path).join('/');
+            url = route.snapshot.url.map(segment => segment.path).join('/');
         }
 
         // iterate over each children
@@ -52,7 +52,7 @@ export class SamBreadcrumbService {
                 return this.getBreadcrumbs(child, url, breadcrumbs);
             }
             // get the route's URL segment
-            let routeURL: string = child.url.value.map(segment => segment.path).join('/');
+            const routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
 
             // append route URL to URL
             url += `/${routeURL}`;
