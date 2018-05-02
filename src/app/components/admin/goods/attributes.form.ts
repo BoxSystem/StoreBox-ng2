@@ -1,3 +1,4 @@
+import { SamSpinService } from './../../spinner/service';
 import { GoodService } from './../../../services/good.service';
 import { Component, EventEmitter } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -37,13 +38,15 @@ export class GoodAttrsFormComponent implements OnInit {
         private fb: FormBuilder,
         private _message: NzMessageService,
         private acRoute: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        public spin: SamSpinService
     ) {}
     ngOnInit() {
         this.acRoute.paramMap.map((params) => {
             return { cid: params.get('id'), aid: params.get('aid') };
         }).subscribe((params) => {
             this.api.get(params.cid).subscribe((data: any) => {
+                this.spin.stop();
                 this.good = data;
                 const attrs = this.good.attributes;
                 for (const key of Object.keys(attrs)) {

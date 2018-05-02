@@ -1,11 +1,12 @@
-<form nz-form [formGroup]="validateForm" (submit)="submit()">
+<app-sam-spin></app-sam-spin>
+<form *ngIf="!spin.active" nz-form [formGroup]="validateForm" (submit)="submit()">
     <div nz-form-item nz-row>
         <div nz-form-label nz-col [nzMd]="3" [nzSm]="4" [nzXs]="24">
             <label nz-form-item-required>名称</label>
         </div>
         <div nz-form-control nz-col [nzMd]="4" [nzSm]="6" [nzXs]="24">
             <nz-input [nzSize]="'large'" [(ngModel)]="item.key" formControlName="key"></nz-input>
-            <div nz-form-explain *ngIf="getFormControl('key').hasError('required')">请输入数据</div>
+            <div nz-form-explain *ngIf="getFormControl('key').hasError('required')">请输入数据1</div>
         </div>
     </div>
     <div nz-form-item nz-row>

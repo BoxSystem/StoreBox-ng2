@@ -23,7 +23,11 @@ export class RegexpComponent implements OnInit {
     isVisible = false;
     cloneItem = new RegexpDoc();
     showAddForm: boolean;
-    constructor(private api: RegexpService, private fb: FormBuilder, private _message: NzMessageService) {}
+    constructor(
+        private api: RegexpService,
+        private fb: FormBuilder,
+        private _message: NzMessageService
+    ) {}
     _refreshList() {
         this.api.get(null, {
             perNum: this._pageSize,
